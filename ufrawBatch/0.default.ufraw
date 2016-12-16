@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<UFRaw>
+<InputFilename></InputFilename>
+<OutputFilename></OutputFilename>
+<OutputPath></OutputPath>
+<Exposure>0.360000</Exposure>
+<ExposureNorm>33192</ExposureNorm>
+<Saturation>0.750000</Saturation>
+<OutputType>2</OutputType>
+<CreateID>2</CreateID>
+<LosslessCompression>1</LosslessCompression>
+<BaseManualCurve Current='yes'>
+	<AnchorXY>0.000000 0.047059</AnchorXY>
+	<AnchorXY>0.250980 0.247059</AnchorXY>
+	<AnchorXY>0.752941 0.498039</AnchorXY>
+	<AnchorXY>0.992157 0.607843</AnchorXY>
+</BaseManualCurve>
+<LinearCurve Current='yes'>
+</LinearCurve>
+<MatrixInputProfile Current='yes'>Color matrix
+</MatrixInputProfile>
+<sRGBOutputProfile Current='yes'>sRGB
+</sRGBOutputProfile>
+</UFRaw>
