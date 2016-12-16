@@ -1,0 +1,91 @@
+# -*- coding: utf-8 -*-
+
+# Form implementation generated from reading ui file './ui_missingFrameReport.ui'
+#
+# Created: Thu Oct 27 03:07:49 2016
+#      by: pyside-uic 0.2.15 running on PySide 1.2.4
+#
+# WARNING! All changes made in this file will be lost!
+
+from PySide import QtCore, QtGui
+
+class Ui_mainWindow(object):
+    def setupUi(self, mainWindow):
+        mainWindow.setObjectName("mainWindow")
+        mainWindow.resize(271, 273)
+        self.centralwidget = QtGui.QWidget(mainWindow)
+        self.centralwidget.setObjectName("centralwidget")
+        self.frame = QtGui.QFrame(self.centralwidget)
+        self.frame.setGeometry(QtCore.QRect(0, 0, 271, 251))
+        self.frame.setFrameShape(QtGui.QFrame.StyledPanel)
+        self.frame.setFrameShadow(QtGui.QFrame.Raised)
+        self.frame.setObjectName("frame")
+        self.lE_dir = QtGui.QLineEdit(self.frame)
+        self.lE_dir.setGeometry(QtCore.QRect(60, 10, 171, 25))
+        self.lE_dir.setObjectName("lE_dir")
+        self.tB_dir = QtGui.QToolButton(self.frame)
+        self.tB_dir.setGeometry(QtCore.QRect(240, 10, 26, 23))
+        self.tB_dir.setObjectName("tB_dir")
+        self.sB_start = QtGui.QSpinBox(self.frame)
+        self.sB_start.setGeometry(QtCore.QRect(40, 100, 71, 25))
+        self.sB_start.setButtonSymbols(QtGui.QAbstractSpinBox.NoButtons)
+        self.sB_start.setMaximum(1000000000)
+        self.sB_start.setProperty("value", 1)
+        self.sB_start.setObjectName("sB_start")
+        self.label = QtGui.QLabel(self.frame)
+        self.label.setGeometry(QtCore.QRect(20, 70, 101, 21))
+        self.label.setObjectName("label")
+        self.sB_end = QtGui.QSpinBox(self.frame)
+        self.sB_end.setGeometry(QtCore.QRect(160, 100, 71, 25))
+        self.sB_end.setButtonSymbols(QtGui.QAbstractSpinBox.NoButtons)
+        self.sB_end.setMaximum(1000000000)
+        self.sB_end.setProperty("value", 24)
+        self.sB_end.setObjectName("sB_end")
+        self.line = QtGui.QFrame(self.frame)
+        self.line.setGeometry(QtCore.QRect(120, 100, 20, 20))
+        self.line.setFrameShadow(QtGui.QFrame.Plain)
+        self.line.setFrameShape(QtGui.QFrame.HLine)
+        self.line.setFrameShadow(QtGui.QFrame.Sunken)
+        self.line.setObjectName("line")
+        self.line_2 = QtGui.QFrame(self.frame)
+        self.line_2.setGeometry(QtCore.QRect(10, 130, 251, 16))
+        self.line_2.setFrameShape(QtGui.QFrame.HLine)
+        self.line_2.setFrameShadow(QtGui.QFrame.Sunken)
+        self.line_2.setObjectName("line_2")
+        self.gB_ext = QtGui.QGroupBox(self.frame)
+        self.gB_ext.setGeometry(QtCore.QRect(20, 140, 241, 61))
+        self.gB_ext.setFlat(True)
+        self.gB_ext.setCheckable(True)
+        self.gB_ext.setChecked(False)
+        self.gB_ext.setObjectName("gB_ext")
+        self.lE_ext = QtGui.QLineEdit(self.gB_ext)
+        self.lE_ext.setGeometry(QtCore.QRect(0, 20, 241, 25))
+        self.lE_ext.setObjectName("lE_ext")
+        self.line_3 = QtGui.QFrame(self.frame)
+        self.line_3.setGeometry(QtCore.QRect(10, 50, 251, 16))
+        self.line_3.setFrameShape(QtGui.QFrame.HLine)
+        self.line_3.setFrameShadow(QtGui.QFrame.Sunken)
+        self.line_3.setObjectName("line_3")
+        self.pB_run = QtGui.QPushButton(self.frame)
+        self.pB_run.setGeometry(QtCore.QRect(10, 200, 251, 31))
+        self.pB_run.setObjectName("pB_run")
+        self.label_2 = QtGui.QLabel(self.frame)
+        self.label_2.setGeometry(QtCore.QRect(20, 10, 41, 21))
+        self.label_2.setObjectName("label_2")
+        mainWindow.setCentralWidget(self.centralwidget)
+        self.statusbar = QtGui.QStatusBar(mainWindow)
+        self.statusbar.setObjectName("statusbar")
+        mainWindow.setStatusBar(self.statusbar)
+
+        self.retranslateUi(mainWindow)
+        QtCore.QMetaObject.connectSlotsByName(mainWindow)
+
+    def retranslateUi(self, mainWindow):
+        mainWindow.setWindowTitle(QtGui.QApplication.translate("mainWindow", "Missing Frames Report", None, QtGui.QApplication.UnicodeUTF8))
+        self.tB_dir.setText(QtGui.QApplication.translate("mainWindow", "...", None, QtGui.QApplication.UnicodeUTF8))
+        self.label.setText(QtGui.QApplication.translate("mainWindow", "Frame Range :", None, QtGui.QApplication.UnicodeUTF8))
+        self.gB_ext.setTitle(QtGui.QApplication.translate("mainWindow", "Edit Extension Filter", None, QtGui.QApplication.UnicodeUTF8))
+        self.lE_ext.setText(QtGui.QApplication.translate("mainWindow", "exr", None, QtGui.QApplication.UnicodeUTF8))
+        self.pB_run.setText(QtGui.QApplication.translate("mainWindow", "RUN", None, QtGui.QApplication.UnicodeUTF8))
+        self.label_2.setText(QtGui.QApplication.translate("mainWindow", "Path :", None, QtGui.QApplication.UnicodeUTF8))
+
