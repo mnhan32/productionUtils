@@ -1,0 +1,49 @@
+// iChannel0: Source input image
+uniform vec2 principal = vec2( 960.0,540.0 ); //Principal
+uniform float g_sensor_width = 23.76;//Sensor Width
+uniform float focal_length = 22.94066047668457;//Focal Length
+uniform vec3 y_K = vec3(-0.23636922240257263,0.2658398151397705,0.0);//K
+uniform vec2 z_p_coeff = vec2( 0.0f, 0.0f );//P
+uniform bool a_distort = true; //Distort
+uniform bool b_polynomial = false; //Polynomial
+
+
+
+
+void mainImage( out vec4 fragColor, in vec2 fragCoord )
+{
+  
+    float fx = focal_length / g_sensor_width * iChannelResolution[0].x;
+    float fy = focal_length / ( g_sensor_width / iChannelResolution[0].x * iChannelResolution[0].y ) * iChannelResolution[0].y;
+
+    
+    float normalized_x = ( fragCoord.x- principal.x ) / fx;
+    float normalized_y = ( fragCoord.y- principal.y ) / fy;
+    
+    float r2 = normalized_x * normalized_x + normalized_y * normalized_y;
+    float r4 = r2 * r2;
+    float r6 = r4 * r2;  
+    float xd = 0.0;
+    float yd = 0.0;
+    float r_coeff;
+    
+    if ( b_polynomial == true ){
+        r_coeff = ( 1 + y_K.x * r2 + y_K.y * r4 + y_K.z * r6 );
+        xd = normalized_x * r_coeff + (2 * z_p_coeff.x * normalized_x * normalized_y) + ( z_p_coeff.y * ( r2 + 2 * normalized_x * normalized_x ));
+        yd = normalized_y * r_coeff + (2 * z_p_coeff.y * normalized_x * normalized_y) + ( z_p_coeff.x * ( r2 + 2 * normalized_y * normalized_y ));    
+        
+    }else{
+        xd = normalized_x / ( 1 + y_K.x * r2 + y_K.y * r4 );
+        yd = normalized_y / ( 1 + y_K.x * r2 + y_K.y * r4 );
+    }
+
+    if ( a_distort == true ){
+        xd =(( xd - normalized_x )* -1) + normalized_x;
+        yd =(( yd - normalized_y )* -1) + normalized_y;
+    }
+    
+    vec2 distort_pos = vec2( fx * xd + principal.x, fy * yd + principal.y );   
+    vec4 col = texture2D(iChannel0, distort_pos.xy/iChannelResolution[0].xy).rgba;
+ 
+    fragColor = vec4(col).rgba;
+}

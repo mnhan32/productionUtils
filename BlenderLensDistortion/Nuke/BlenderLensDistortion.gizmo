@@ -1,0 +1,46 @@
+#! C:/Program Files/Nuke10.0v3/nuke-10.0.3.dll -nx
+version 10.0 v3
+Gizmo {
+ addUserKnob {20 BlenderMovieClipDistortion}
+ addUserKnob {41 "Local GPU: " T BlinkScript3.gpuName}
+ addUserKnob {41 "Use GPU if Available" T BlinkScript3.useGPUIfAvailable}
+ addUserKnob {26 ""}
+ addUserKnob {2 blenderLensData l "Blender Lens Data"}
+ addUserKnob {22 syncData l Sync -STARTLINE T "import os\nmyRoot = nuke.thisNode()\ndataIn=myRoot\['blenderLensData'].getValue()\nif os.path.isfile(dataIn):\n\twith open ( dataIn, 'r') as info:\n\t\tdata = info.readlines()\n\nfor d in data:\n\tdsplit = d.split(':')\n\t\n\tif 'sensor width' in dsplit\[0]:\n\t\tparam='Sensor Size'\n\t\tvar = float(dsplit\[1])\n\t\tmyRoot\[param].setValue(var)\n\n\tif 'focal length' in dsplit\[0]:\n\t\tparam='Focal Length'\n\t\tvar = float(dsplit\[1])\n\t\tmyRoot\[param].setValue(var)\n\n\n\tif 'cx' in dsplit\[0]:\n\t\tparam='Center'\n\t\tvar = float(dsplit\[1])\n\t\tmyRoot\[param].setValue(var,0)\n\n\n\tif 'cy' in dsplit\[0]:\n\t\tparam='Center'\n\t\tvar = float(dsplit\[1])\n\t\tmyRoot\[param].setValue(var,1)\n\n\tif 'model' in dsplit\[0]:\n\t\tparam='Polynomial'\n\t\tif 'DIVISION' in dsplit\[1]:\t\t\n\t\t\tvar = 0\n\t\telif 'POLYNOMIAL' in dsplit\[1]:\n\t\t\tvar = 1 \n\t\tmyRoot\[param].setValue(var)\n\n\tif 'k1' in dsplit\[0]:\n\t\tparam='k'\n\t\tvar = float(dsplit\[1])\n\t\tmyRoot\[param].setValue(var,0)\n\n\n\tif 'k2' in dsplit\[0]:\n\t\tparam='k'\n\t\tvar = float(dsplit\[1])\n\t\tmyRoot\[param].setValue(var,1)\n\n\n\tif 'k3' in dsplit\[0]:\n\t\tparam='k'\n\t\tvar = float(dsplit\[1])\n\t\tmyRoot\[param].setValue(var,2)\n\n\n\tif 'p1' in dsplit\[0]:\n\t\tparam='p'\n\t\tvar = float(dsplit\[1])\n\t\tmyRoot\[param].setValue(var,0)\n\n\tif 'p2' in dsplit\[0]:\n\t\tparam='p'\n\t\tvar = float(dsplit\[1])\n\t\tmyRoot\[param].setValue(var,1)\n\n\t\n\t\t\n\n\n"}
+ addUserKnob {41 Distort T BlinkScript3.BlenderMovieClipDistortion_Distort}
+ addUserKnob {41 Polynomial -STARTLINE T BlinkScript3.BlenderMovieClipDistortion_Polynomial}
+ addUserKnob {41 Center T BlinkScript3.BlenderMovieClipDistortion_Center}
+ addUserKnob {41 "Sensor Size" T "BlinkScript3.BlenderMovieClipDistortion_Sensor Size"}
+ addUserKnob {41 "Focal Length" T "BlinkScript3.BlenderMovieClipDistortion_Focal Length"}
+ addUserKnob {41 k T BlinkScript3.BlenderMovieClipDistortion_k}
+ addUserKnob {41 p T BlinkScript3.BlenderMovieClipDistortion_p}
+}
+ Input {
+  inputs 0
+  name Input1
+  xpos 461
+  ypos -59
+ }
+ BlinkScript {
+  recompileCount 10
+  KernelDescription "2 \"BlenderMovieClipDistortion\" iterate componentWise 77cc4cc1a9d3c65261eafca862549dcf4850099ac34d2b0e8b7bf58420d22394 2 \"src\" Read Random \"dst\" Write Point 7 \"Center\" Float 2 AABwRAAAB0Q= \"Sensor Size\" Float 1 exS+QQ== \"Focal Length\" Float 1 Sti3QQ== \"k\" Float 3 omh1vv9ciz4AAAAAAAAAAA== \"p\" Float 2 AAAAAAAAAAA= \"Distort\" Bool 1 AQ== \"Polynomial\" Bool 1 AA== 7 \"principal\" 2 1 \"sensor_width\" 1 1 \"focal_length\" 1 1 \"k\" 3 1 \"p\" 2 1 \"distort\" 1 1 \"polynomial\" 1 1 2 \"fx\" Float 1 1 AAAAAA== \"fy\" Float 1 1 AAAAAA=="
+  EncodedSource "1 2144 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"
+  rebuild ""
+  "BlenderMovieClipDistortion_Sensor Size" 23.76000023
+  "BlenderMovieClipDistortion_Focal Length" 31.40136147
+  BlenderMovieClipDistortion_k {-0.2292374969 0.6977586746 0}
+  BlenderMovieClipDistortion_Distort false
+  BlenderMovieClipDistortion_Polynomial true
+  protectKernelWhenPublishing true
+  rebuild_finalise ""
+  name BlinkScript3
+  selected true
+  xpos 461
+  ypos -19
+ }
+ Output {
+  name Output1
+  xpos 461
+  ypos 81
+ }
+end_group
