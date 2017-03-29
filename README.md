@@ -13,4 +13,6 @@ convertToTx
 (python2.x) Require QT, pyside, OIIO tool
 This script can be executed within Maya or directly under OS. it will convert selected images to tx format.
 
+BlenderLensDistortion
+Pyplug for Natron, and gizmo for Nuke. This is a lens distortion node utils for Natron and Nuke. Using distorion model based on Blender source code. There is also a python script for blender to export lens data.
 
