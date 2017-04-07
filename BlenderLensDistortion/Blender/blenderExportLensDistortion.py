@@ -1,3 +1,8 @@
+#######################################################
+# by Menghan Ho
+# 2017/03/28
+# this script export active clip lens info as a txt file to the same dir where blende file located
+#
 import bpy
 import os
 

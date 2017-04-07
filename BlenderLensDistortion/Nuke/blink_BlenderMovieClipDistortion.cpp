@@ -1,3 +1,7 @@
+//////////////////////
+// by Menghan Ho
+// 2017/03/28
+// This is a Nuke blink script for Blender Lens distortion
 kernel BlenderMovieClipDistortion : ImageComputationKernel<eComponentWise>
 {
   Image<eRead, eAccessRandom, eEdgeClamped> src;  //the input image

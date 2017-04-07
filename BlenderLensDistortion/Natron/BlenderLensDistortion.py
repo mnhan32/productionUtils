@@ -6,6 +6,12 @@
 # See http://natron.readthedocs.org/en/master/groups.html#adding-hand-written-code-callbacks-etc
 # Note that Viewers are never exported
 
+
+############################
+# by Menghan Ho
+# 2017/03/29
+# Blender Lens Distortion plplug for Natron
+#
 import NatronEngine
 import sys
 

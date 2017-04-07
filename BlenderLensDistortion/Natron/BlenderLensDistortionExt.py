@@ -1,3 +1,7 @@
+############################
+# by Menghan Ho
+# 2017/03/29
+# plplug Ext file for Blender Lens Distortion
 #
 import NatronEngine
 import os
