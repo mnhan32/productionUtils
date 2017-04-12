@@ -7,6 +7,7 @@ import os,fnmatch,sys,datetime,glob
 from operator import itemgetter
 from itertools import *
 import tkFileDialog
+import Tkinter as tk
 
 
 # No Error Handle, Users have to make sure all images exists
@@ -14,33 +15,25 @@ import tkFileDialog
 # Can't find . in file name prefix, the format should be in redshift naming format
 #   NamePrefix_denoise#.aovPassName.####.ext
 
-def main():
+def genCmd(listbox,root,tar,aov,sFrame,eFrame,ext,padN):
     altusCmd = os.path.abspath('C:\\Program Files\\Altus Denoiser\\bin\\altus-cli.exe')
-    print altusCmd
+
     if  not os.path.isfile(altusCmd):
         print 'can not find altus-cli command.\n'
         exit
-   
         
-    defaultPath=os.path.abspath(__file__)
-    options={}
-    options['initialdir'] = defaultPath
-    options['title'] = "source folder location"
-    root=tkFileDialog.askdirectory(**options)
-    
-    
-    
-    #print 'source folder %s.\n'%root
-    options['initialdir']=root
-    tar=tkFileDialog.askdirectory(**options)
-    #print 'target folder %s.\n'%tar
+    tarAov = []
+    for k in listbox.curselection():
+        tarAov.append(aov[k])
 
-    sourceFiles = sorted(glob.glob('%s/*_denoise0.*'%root))
-    grp=groupby(sourceFiles, lambda x: '.'.join(os.path.basename(x).split('.')[0:-2]))
-    f=open('%s/denoise.bat'%tar,'w+')
+    #print aov
     c = 0
-    for key,group in groupby(sourceFiles, lambda x: '.'.join(os.path.basename(x).split('.')[0:-2])):
-        
+    
+    if not tarAov:
+        print 'no aov selected.'
+        exit
+    f=open('%s/denoise.bat'%tar,'w+')
+    for key in tarAov:
         c = c+1
         #rgb
         outName = key.replace("_denoise0","_denoise")
@@ -53,13 +46,7 @@ def main():
             posFile0 = '.'.join(key.split('.')[0:])+'.P'
         posFile1 = posFile0.replace("_denoise0","_denoise1")
         
-        fileSort = sorted([n for n in group])
-        sFrame = int(fileSort[0].split('.')[-2])
-        eFrame = int(fileSort[-1].split('.')[-2])        
-        ext = fileSort[-1].split('.')[-1]
-        padN = ''
-        for i in range(len(fileSort[0].split('.')[-2])):
-            padN = padN + '#'
+       
 
         batCmd = 'REM #%d Denoise %s\n'%(c, key.replace('_denoise0',''))
         batCmd = batCmd + 'set sFrame=%s\n'%sFrame
@@ -74,9 +61,59 @@ def main():
         batCmd = batCmd + '--kc_1 0.45 --kc_2 0.45 --kc_4 0.45 --kf 0.6 --radius 10 --renderer redshift --frame-radius 1 --quality production '
         batCmd = batCmd + '--gpu ' #comment out this line if use openCL
         batCmd = batCmd + '\n\n'
+        
         f.write(batCmd)
     f.write('PAUSE')
     f.close()
+
+    
+def main():    
+   
         
-         
+    defaultPath=os.path.abspath(__file__)
+    options={}
+    options['initialdir'] = defaultPath
+    options['title'] = "source folder location"
+    root=tkFileDialog.askdirectory(**options)
+    
+    
+    
+    #print 'source folder %s.\n'%root
+    options['initialdir']=root
+    options['title'] = "target folder location"
+    tar=tkFileDialog.askdirectory(**options)
+    #print 'target folder %s.\n'%tar
+    
+    sourceFiles = sorted(glob.glob('%s/*_denoise0.*'%root))
+    grp=groupby(sourceFiles, lambda x: '.'.join(os.path.basename(x).split('.')[0:-2]))
+
+    tkRoot = tk.Tk()
+    tkRoot.title('redshift denoise')
+    label = tk.Label(tkRoot,text = 'Select AOVs to denoise.')
+    listbox = tk.Listbox(tkRoot,selectmode=tk.EXTENDED)
+    aov=[]
+    for key,group in groupby(sourceFiles, lambda x: '.'.join(os.path.basename(x).split('.')[0:-2])):
+        aov.append(key)
+        k=key.split('.')
+        if len(k)<2:
+            k='Beauty'
+        else:
+            k=k[-1]
+        listbox.insert(tk.END,k)
+        
+        fileSort = sorted([n for n in group])
+        sFrame = int(fileSort[0].split('.')[-2])
+        eFrame = int(fileSort[-1].split('.')[-2])        
+        ext = fileSort[-1].split('.')[-1]
+        padN = ''
+        for i in range(len(fileSort[0].split('.')[-2])):
+            padN = padN + '#'
+        
+
+    btn1 = tk.Button(tkRoot,text='Create',command=lambda : genCmd(listbox,root,tar,aov,sFrame,eFrame,ext,padN))
+    label.pack()
+    listbox.pack(fill=tk.BOTH, expand=1)
+    btn1.pack()
+    tkRoot.mainloop()
+ 
 main()
