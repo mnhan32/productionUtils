@@ -24,7 +24,7 @@ def genCmd(listbox,root,tar,aov,sFrame,eFrame,ext,padN):
         
     tarAov = []
     for k in listbox.curselection():
-        tarAov.append(aov[k])
+        tarAov.append(aov[int(k)])
 
     #print aov
     c = 0
@@ -65,6 +65,7 @@ def genCmd(listbox,root,tar,aov,sFrame,eFrame,ext,padN):
         f.write(batCmd)
     f.write('PAUSE')
     f.close()
+    print 'Writing bat to %s/denoise.bat'%tar
 
     
 def main():    
