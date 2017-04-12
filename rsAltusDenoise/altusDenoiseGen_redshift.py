@@ -9,7 +9,6 @@ from itertools import *
 import tkFileDialog
 import Tkinter as tk
 
-
 # No Error Handle, Users have to make sure all images exists
 # works for redshift only
 # Can't find . in file name prefix, the format should be in redshift naming format
@@ -32,7 +31,21 @@ def genCmd(listbox,root,tar,aov,sFrame,eFrame,ext,padN):
     if not tarAov:
         print 'no aov selected.'
         exit
-    f=open('%s/denoise.bat'%tar,'w+')
+    if len(tarAov) > 1:
+        batFileName = 'misc'
+    else:
+        batFileName = tarAov[0].replace("_denoise0","")
+    fileToWrite = '%s/%s_denoise.bat'%(tar,batFileName)
+    numPad=0
+    
+    while True:
+        if not os.path.isfile(fileToWrite):
+            break
+        numPad = numPad + 1    
+        fileToWrite ='%s/%s_denoise%d.bat'%(tar,batFileName,numPad)
+            
+        
+    f=open(fileToWrite,'w+')
     for key in tarAov:
         c = c+1
         #rgb
@@ -65,7 +78,7 @@ def genCmd(listbox,root,tar,aov,sFrame,eFrame,ext,padN):
         f.write(batCmd)
     f.write('PAUSE')
     f.close()
-    print 'Writing bat to %s/denoise.bat'%tar
+    print 'Writing bat to %s'%fileToWrite
 
     
 def main():    
