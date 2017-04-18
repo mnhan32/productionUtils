@@ -8,7 +8,7 @@ import os
 
 fpath = bpy.data.filepath
 fDir = os.path.dirname(fpath)
-fName = os.path.basename(fpath).split('.')[0:-1][0]
+fName = '.'.join(os.path.basename(fpath).split('.')[0:-1])
 outName = os.path.join(fDir,'%s_LensInfo.txt'%fName)
 print('export lens info to %s'%outName)
 for area in bpy.context.screen.areas:
