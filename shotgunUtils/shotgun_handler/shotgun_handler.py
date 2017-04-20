@@ -4,6 +4,7 @@ from shotgun_api3 import Shotgun
 import sys,os,glob,platform,time,urllib
 
 class shotgun_handler(object):
+    #init arg order, server name, user name, password
     def __init__(self,*args):
         try:   
             self.sg = Shotgun(args[0],login=args[1],password=args[2])
@@ -78,9 +79,14 @@ class shotgun_handler(object):
         else:
             return None
     
+    def getUserActiveTask(self):
+        
     
     def getTimeLog(self,*args):
         pass
+    
+    def close(self):
+        self.sg.close()
     
     def __filterGen(self):
         pass
