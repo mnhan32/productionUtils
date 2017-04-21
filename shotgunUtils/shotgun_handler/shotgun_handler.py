@@ -27,7 +27,7 @@ class shotgun_handler(object):
 
     def getProjets(self,*args):
         if args[0]:
-            filterArg=[['name','in',args[0]]]
+            filterArg=[['id','in',args[0]]]
         else:
             filterArg=[]       
         proj=self.sg.find('Project',filters=filterArg,fields=args[1])    
@@ -78,9 +78,7 @@ class shotgun_handler(object):
             return taskData
         else:
             return None
-    
-    def getUserActiveTask(self):
-        
+
     
     def getTimeLog(self,*args):
         pass
