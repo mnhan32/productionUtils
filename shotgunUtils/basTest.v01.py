@@ -1,35 +1,49 @@
-from shotgun_handler import shotgun_handler
-import getpass
 from shotgun_api3 import Shotgun
-import json
-from PySide.QtCore import *
-from PySide.QtGui import *
-import sys,os,glob,platform,datetime,urllib,pprint
+from PySide import QtGui,QtCore
+import os,sys,getpass,json
+import glob,platform,datetime,urllib,pprint
 
 class taskWidget(QWidget):
 
-    def __init__(self,parent=None):
-        super(taskWidget,self).__init__(parent)#,Qt.FramelessWindowHint
-        self.tableView= QTableView()
-        self.tableView.setIconSize(QSize(100,75))
+    def __init__(self):
+        super(taskWidget,self).__init__()#,Qt.FramelessWindowHint
+        #check if folder exists
+        if not os.path.isdir(_preference):
+            os.mkdir(_preference)
+
+        self.tableView= QtGui.QTableView()
+        self.tableView.setIconSize(QtCore.QSize(72,36))
+
+        #setup header label
         self.tableView.verticalHeader().hide()
         #self.tableView.setHorizontalHeaderLabels(['Proj','Task','Des'])
         #self.tableView.horizontalHeader()
-        self.tableView.setSelectionBehavior(QAbstractItemView.SelectRows)
         
-        layout = QVBoxLayout(self)
+        #only allow select row, don't allow edit 
+        self.tableView.setSelectionBehavior(QtGui.QAbstractItemView.SelectRows)
+        self.tableView.setEditTriggers(QtGui.QAbstractItemView.NoEditTriggers)
+
+        layout = QtGui.QVBoxLayout(self)
         layout.addWidget(self.tableView)
         self.setLayout(layout)        
         
-    def initUI(self,inDataModel):
+        self.__initData()
+
+    def __initData(self):
+        self.__home = os.path.expanduser("~")
+        self.__folderName = ".wefxstudio.shotgunstudio.com"
+        self.__preference = os.path.join(_home,_folderName)
+
+    def __initUI(self,inDataModel):
         self.tableView.setModel(inDataModel)
         self.tableView.resizeRowsToContents()
-        self.tableView.setColumnWidth(0,150)
-        self.itemSel = QItemSelectionModel(inDataModel)
-        self.tableView.clicked.connect(self.taskSelected)
+        self.tableView.resizeColumnsToContents()
+        #self.tableView.setColumnWidth(0,150)
+        #self.itemSel = QItemSelectionModel(inDataModel)
+        self.tableView.doubleClicked.connect(self.taskSelected)
         
     
-    def taskSelected(self):
+    def __taskSelected(self):
         #self.hide()
         print 'here'
         selR = self.tableView.selectedIndexes()
@@ -43,7 +57,8 @@ class taskWidget(QWidget):
             f.write('\n')'''
         
         #targetWid.updateTaskTrigger()
-
+    
+    
 
 if __name__=='__main__':
     
@@ -87,7 +102,7 @@ if __name__=='__main__':
     app = QApplication(sys.argv)
     app.setStyleSheet('')
     mainWin = taskWidget()    
-    mainWin.initUI(taskData)
+    mainWin.__initUI(taskData)
     mainWin.show()
     ret = app.exec_()
     sys.exit(ret)
