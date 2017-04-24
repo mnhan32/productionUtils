@@ -21,10 +21,11 @@ def getUser(sg,user):
 
     return userData
 
-def batchSubmit(inF,user):
+def batchSubmit(sg,inF,user):
     batchData=[]
     count = 0
     data=[]
+
     with open(inF, 'r') as f:
         for line in f:
             data.append(json.loads(line))
@@ -32,39 +33,95 @@ def batchSubmit(inF,user):
 
     for idx,i in enumerate(data):
         typ = i['type']
-        if idx < count - 1:
+        if idx < count-1:
             if not typ == 'PAUSE' and not 'submit' in i.keys(): 
                 tObj1 = datetime.datetime.strptime(i['cDate'],'%Y-%m-%d %H:%M:%S')
                 tObj2 = datetime.datetime.strptime(data[idx+1]['cDate'],'%Y-%m-%d %H:%M:%S')
                 timeDiff = (tObj2 - tObj1)
                 dObj = getTimeStamp()[0]
-                timeLog = {
-                        "project":{"type":"Project", "id":i['project']['id']},
-                        "entity":{"type":"Task", "id":i['id']},
-                        "user":{"type":"HumanUser","id":int(user)},
-                        "duration":timeDiff.total_seconds()/60.0,
-                        "date":dObj
-                    }
+                dur = timeDiff.total_seconds()/60.0
+                if dur < 1:
+                    dur = 1
+                if typ == 'Misc':
+                    timeLog = {
+                            "project":{"type":"Project","id":108}, 
+                            "user":{"type":"HumanUser","id":int(user)},
+                            "duration":dur,
+                            "date":dObj,
+                            "description":i[des]
+                            }
+                else:
+                    timeLog = {
+                            "project":{"type":"Project", "id":i['project']['id']},
+                            "entity":{"type":"Task", "id":i['id']},
+                            "user":{"type":"HumanUser","id":int(user)},
+                            "duration":dur,
+                            "date":dObj
+                        }
                 batchData.append(timeLog)
-        if i == count -1:
+                #batchData.append({"request_type":"create","entity_type":"TimeLog","data":timeLog})
+                #print timeLog
+
+        if idx == count-1:
+            
             if not typ == 'PAUSE' and not 'submit' in i.keys():
                 tObj1 = datetime.datetime.strptime(i['cDate'],'%Y-%m-%d %H:%M:%S')
                 tObj2 = datetime.datetime.now()
                 timeDiff = (tObj2 - tObj1)
                 dObj = getTimeStamp()[0]
-                timeLog = {
-                        "project":{"type":"Project", "id":int(i[u'project'][u'id'])},
-                        "entity":{"type":"Task", "id":int(i[u'id'])},
-                        "user":{"type":"HumanUser","id":user},
-                        "duration":timeDiff.total_seconds()/60.0,
-                        "date":dObj
-                    }
+                dur = timeDiff.total_seconds()/60.0
+                if dur < 1:
+                    dur = 1
+                if typ == 'Misc':
+                    timeLog = {
+                            "project":{"type":"Project","id":108}, 
+                            "user":{"type":"HumanUser","id":int(user)},
+                            "duration":dur,
+                            "date":dObj,
+                            "description":i[des]
+                            }
+                else:
+                    timeLog = {
+                            "project":{"type":"Project", "id":int(i['project'][u'id'])},
+                            "entity":{"type":"Task", "id":int(i['id'])},
+                            "user":{"type":"HumanUser","id":user},
+                            "duration":dur,
+                            "date":dObj
+                        }
                 batchData.append(timeLog)
-    
-    print 'data'
-    for i in batchData:
-        print i
-    print 'end data'
+                #batchData.append({"request_type":"create","entity_type":"TimeLog","data":timeLog})
+                #print timeLog
+
+    #batch submit
+    print 'batch data submit.'
+    if batchData:
+        try:
+            #print sg.batch(batchData)
+            for i in batchData:
+                sg.create('TimeLog',i)
+            #mark submit
+            if data:
+                for j in data:
+                    if not 'submit' in j.keys():
+                        j['submit'] = getTimeStamp()[1]
+                with open(inF, 'w+') as f:
+                    for i in data:
+                        json.dump(i,f)
+                        f.write('\n')
+            pass
+        except:
+            print 'submit fail.'
+
+
+def pauseTask(inF):
+    pauseData = {
+            "cDate":getTimeStamp()[1],
+            "type":"PAUSE"
+            }
+    with open(inF, 'a') as f:
+        json.dump(pauseData, f)
+        f.write('\n')
+
 
 def getTask(sg, userid):
     
@@ -75,8 +132,28 @@ def getTask(sg, userid):
         ['project.Project.sg_status', 'is', 'Active']
     ]
     activeTasks = sg.find('Task',filters=filterArg,fields=['name','sg_description','sg_status_list','step','entity','project'],order=[{'field_name':'project', 'direction':'asc'}])
-
+    #print activeTasks
     return activeTasks
+
+
+def writeMiscData(inF, mData, des=None):
+    if mData == '2':
+        des = 'learning'
+    if mData == '1':
+        des = 'meeting'
+    if mData == '3':
+        if des.strip() =='':
+            des = 'no input'
+    if mData.isdigit():
+        miscData = {
+                "cDate":getTimeStamp()[1],
+                "type":"Misc",
+                "des":des
+             }
+        with open(inF, 'a') as f:
+            json.dump(miscData,f)
+            f.write('\n')
+    
 
 if __name__ == '__main__':
     
@@ -106,10 +183,12 @@ if __name__ == '__main__':
         if taskData:
             print '-------------------'
             for idx,i in enumerate(taskData):
-                print '%d) Proj : %s, Type : %s ,  %s, status : %s'%(idx+1,i['project']['name'],i['entity']['type'],i['step']['name'],i['sg_status_list'])
+                print '%d) Proj : %s, %s : %s ,  %s, status : %s'%(idx+1,i['project']['name'],i['entity']['type'],i['entity']['name'],i['step']['name'],i['sg_status_list'])
         print '-------------------'
         print 'L) Login'
         print 'P) Pause'
+        print 'M) Misc'
+        print 'S) Submit'
         print 'Q) Quit'
 
         if str(cStatus).isdigit():
@@ -119,6 +198,25 @@ if __name__ == '__main__':
         
         iData = raw_input('[L,Q,P,S,1,2.....]')
         
+        if iData.upper() == 'M':
+            clearTerminal()
+            des=''
+            taskFile = os.path.join(__preference,'%s.task'%getTimeStamp()[0])
+            while 1:
+                print '1) Meeting'
+                print '2) Learning'
+                print '3) Custom'
+                print 'Q) Escape'
+                mData = raw_input('[1-3,Q]')
+                if mData.upper() == 'Q' or mData == '1' or mData == '2':
+                    break                
+                if mData == '3':
+                    des = raw_input('[Custom]')
+                    break
+
+            writeMiscData(taskFile, mData, des)    
+            clearTerminal() 
+
         if iData.upper() == 'Q':
             if sg:
                 sg.close()
@@ -173,6 +271,8 @@ if __name__ == '__main__':
                 taskData = getTask(sg,userData['id'])
                 #print taskData
 
+
+
             except:
                 print '..........login fail.'
                 pass
@@ -181,15 +281,8 @@ if __name__ == '__main__':
 
         if iData.upper() == 'P':
             if taskData:
-                pauseData = {
-                        "cDate":getTimeStamp()[1],
-                        "type":"PAUSE"
-                        }
                 taskFile = os.path.join(__preference,'%s.task'%getTimeStamp()[0])
-                with open(taskFile, 'a') as f:
-                    json.dump(pauseData, f)
-                    f.write('\n')
-
+                pauseTask(taskFile)
                 cStatus = 'P'
 
             clearTerminal()
@@ -211,26 +304,18 @@ if __name__ == '__main__':
                     if submitTask.isdigit():
                         submitD = int(submitTask) - 1
                         if submitD >=0 and submitD < len(taskFileList):
-                            with open(taskFileList[submitD], 'r') as f:
-                                for line in f:
-                                    tmpData = json.loads(line)                                    
-                                    if not 'submit' in tmpData.keys():
-                                        tmpData['submit'] = getTimeStamp()[1]
-                                    submitData.append(tmpData)
+                            batchSubmit(sg, taskFileList[submitD], userData['id'])
 
-                            with open(taskFileList[submitD], 'w+') as f:
-                                for i in submitData:
-                                    json.dump(i,f)
-                                    f.write('\n')
-                            
-                            batchSubmit(taskFileList[submitD],userData['id'])
+                            if taskData:
+                                pauseTask(taskFileList[submitD])
+                                cStatus = 'P'
 
                         break
                     elif submitTask == 'Q':
                         break
 
                 #print submitData
-            clearTerminal()
+            #clearTerminal()
 
         if taskData and iData.isdigit():
             idx = int(iData)-1
