@@ -156,7 +156,7 @@ def writeMiscData(inF, mData, des=None):
     
 
 if __name__ == '__main__':
-    
+    clearTerminal()    
     sg = None
     token = None
     cfg_data = None
@@ -195,7 +195,9 @@ if __name__ == '__main__':
             print '***** Working on %d ****'%(cStatus+1)
         elif cStatus == 'P':
             print '***** Pausing ******'
-        
+        elif cStatus == 'M':
+            print '***** Misc *****'
+
         iData = raw_input('[L,Q,P,S,1,2.....]')
         
         if iData.upper() == 'M':
@@ -209,8 +211,10 @@ if __name__ == '__main__':
                 print 'Q) Escape'
                 mData = raw_input('[1-3,Q]')
                 if mData.upper() == 'Q' or mData == '1' or mData == '2':
+                    cStatus = 'M'
                     break                
                 if mData == '3':
+                    cStatus = 'M'
                     des = raw_input('[Custom]')
                     break
 
@@ -218,6 +222,7 @@ if __name__ == '__main__':
             clearTerminal() 
 
         if iData.upper() == 'Q':
+            clearTerminal()
             if sg:
                 sg.close()
             break
