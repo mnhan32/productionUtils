@@ -48,7 +48,7 @@ def batchSubmit(sg,inF,user):
                             "user":{"type":"HumanUser","id":int(user)},
                             "duration":dur,
                             "date":dObj,
-                            "description":i[des]
+                            "description":i['des']
                             }
                 else:
                     timeLog = {
