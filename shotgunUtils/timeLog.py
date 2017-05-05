@@ -1,4 +1,4 @@
-import os,sys,datetime,json,getpass,glob,ast
+import os,sys,datetime,json,getpass,glob,ast,time
 from shotgun_api3 import Shotgun
 
 def clearTerminal():
@@ -78,11 +78,11 @@ def batchSubmit(sg,inF,user):
                             "user":{"type":"HumanUser","id":int(user)},
                             "duration":dur,
                             "date":dObj,
-                            "description":i[des]
+                            "description":i['des']
                             }
                 else:
                     timeLog = {
-                            "project":{"type":"Project", "id":int(i['project'][u'id'])},
+                            "project":{"type":"Project", "id":int(i['project']['id'])},
                             "entity":{"type":"Task", "id":int(i['id'])},
                             "user":{"type":"HumanUser","id":user},
                             "duration":dur,
@@ -129,9 +129,9 @@ def getTask(sg, userid):
     filterArg=[
         ['sg_status_list','in',['ip','rdy']],
         ['task_assignees','is',{'type':'HumanUser','id':userid}],
-        ['project.Project.sg_status', 'is', 'Active']
+        ['project.Project.sg_status', 'in', ['Active','Bidding']]
     ]
-    activeTasks = sg.find('Task',filters=filterArg,fields=['name','sg_description','sg_status_list','step','entity','project'],order=[{'field_name':'project', 'direction':'asc'}])
+    activeTasks = sg.find('Task',filters=filterArg,fields=['content','sg_description','sg_status_list','step','entity','project'],order=[{'field_name':'project', 'direction':'asc'}])
     #print activeTasks
     return activeTasks
 
@@ -156,6 +156,14 @@ def writeMiscData(inF, mData, des=None):
     
 
 if __name__ == '__main__':
+    sysArg = sys.argv
+
+    if len(sysArg)>1:
+        if not sysArg[1].upper() == 'S':
+            print '%s is invalid artgument'%sysArg[1]
+            sys.exit()
+
+    noCfg = False
     clearTerminal()    
     sg = None
     token = None
@@ -183,9 +191,17 @@ if __name__ == '__main__':
         if taskData:
             print '-------------------'
             for idx,i in enumerate(taskData):
-                print '%d) Proj : %s, %s : %s ,  %s, status : %s'%(idx+1,i['project']['name'],i['entity']['type'],i['entity']['name'],i['step']['name'],i['sg_status_list'])
+                typeAndName = ''
+                if 'entity' in i.keys() and not i['entity']==None:
+                    typeAndName = '%s : %s,'%(i['entity']['type'],i['entity']['name'])
+                if not 'step' in i.keys():
+                    i['step']={'name':'N/a'}
+                
+                
+                print '%d) Proj : %s, %s %s : %s, status : %s'%(idx+1,i['project']['name'],typeAndName,i['content'],i['step']['name'],i['sg_status_list'])
         print '-------------------'
         print 'L) Login'
+        print 'R) Refresh'
         print 'P) Pause'
         print 'M) Misc'
         print 'S) Submit'
@@ -210,7 +226,9 @@ if __name__ == '__main__':
                 print '3) Custom'
                 print 'Q) Escape'
                 mData = raw_input('[1-3,Q]')
-                if mData.upper() == 'Q' or mData == '1' or mData == '2':
+                if mData.upper() == 'Q':
+                    break
+                if mData == '1' or mData == '2':
                     cStatus = 'M'
                     break                
                 if mData == '3':
@@ -226,6 +244,11 @@ if __name__ == '__main__':
             if sg:
                 sg.close()
             break
+        if iData.upper() == 'R':
+            clearTerminal()
+            if sg:                
+                userData = getUser(sg,cfg_data['user'])
+                taskData = getTask(sg,userData['id'])
 
         if iData.upper() == 'L':
             __cfg_list = glob.glob(os.path.join(__preference,'*.cfg'))
@@ -247,6 +270,8 @@ if __name__ == '__main__':
 
                     except:
                         pass
+                noCfg = False
+
 
             else:
                 server = raw_input('Server : ')
@@ -257,20 +282,43 @@ if __name__ == '__main__':
                         "user":userId,
                         "passwd":userPass
                         }
+                noCfg = True
 
             try:
-                print '#staring login'
-                sg = Shotgun(cfg_data['server'],login=cfg_data['user'],password=cfg_data['passwd'])
+                print '#staring login %s'%cfg_data['user']
+                
+                if len(sysArg) > 1 :
+                    if sysArg[1].upper() == 'S':
+                        if noCfg:
+                            userPass = cfg_data['passwd']
+                        else:
+                            userPass = getpass.getpass()
+
+                        cfg_data['passwd'] = ''
+                else:
+                    #time.sleep(2)
+                    #print 'data : %s'%cfg_data['passwd']
+
+                    if cfg_data['passwd'] == '':
+                        userPass = getpass.getpass()
+                        cfg_data['passwd'] = userPass
+                    else:
+                        userPass = cfg_data['passwd']
+
+
+                sg = Shotgun(cfg_data['server'],login=cfg_data['user'],password=userPass)
                 token = sg.get_session_token()
                 user = cfg_data['user']
                 #print cfg_data['server'].split('//')[1]
                 __cfg = os.path.join(__preference, '%s.cfg'%cfg_data['server'].split('//')[1])
                
+
                 with open(__cfg,'w') as f:
                     json.dump(cfg_data, f)
                 
                 print '..........login sucess'
-
+                #print cfg_data['user']
+                time.sleep(2)
                 userData = getUser(sg,cfg_data['user'])
                 #print userData
                 taskData = getTask(sg,userData['id'])
