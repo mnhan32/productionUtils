@@ -192,12 +192,31 @@ if __name__ == '__main__':
             print '-------------------'
             for idx,i in enumerate(taskData):
                 typeAndName = ''
-                if 'entity' in i.keys() and not i['entity']==None:
-                    typeAndName = '%s : %s,'%(i['entity']['type'],i['entity']['name'])
-                if not 'step' in i.keys():
-                    i['step']={'name':'N/a'}
-                
-                
+                #print i
+                #time.sleep(5)
+                try:
+                    if 'entity' in i.keys():
+                        #print 'pass0'
+                        #time.sleep(3)
+                        if i['entity']:
+                            #print 'pass1'
+                            #time.sleep(3)
+                            typeAndName = '%s : %s,'%(i['entity']['type'],i['entity']['name'])
+                        
+                    #print 'pass2'
+
+                    if not 'step' in i.keys() or i['step']==None:
+                        #print i
+                        #time.sleep(3)
+                        i['step']={'name':'N/a'}
+               
+                    #print 'pass3'
+                    #time.sleep(3)
+
+                except:
+                    print 'err'
+                    time.sleep(10)
+                    pass
                 print '%d) Proj : %s, %s %s : %s, status : %s'%(idx+1,i['project']['name'],typeAndName,i['content'],i['step']['name'],i['sg_status_list'])
         print '-------------------'
         print 'L) Login'
@@ -318,7 +337,7 @@ if __name__ == '__main__':
                 
                 print '..........login sucess'
                 #print cfg_data['user']
-                time.sleep(2)
+                #time.sleep(2)
                 userData = getUser(sg,cfg_data['user'])
                 #print userData
                 taskData = getTask(sg,userData['id'])
