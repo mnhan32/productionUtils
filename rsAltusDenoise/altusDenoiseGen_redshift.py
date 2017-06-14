@@ -54,12 +54,90 @@ def genCmd(listbox,root,tar,aov,sFrame,eFrame,ext,padN):
         rgbFile1 = key.replace("_denoise0","_denoise1")
         
         if len(key.split('.'))>1:
-            posFile0 = '.'.join(key.split('.')[0:-1])+'.P'
+            basename = '.'.join(key.split('.')[0:-1])
         else:
-            posFile0 = '.'.join(key.split('.')[0:])+'.P'
+            basename = '.'.join(key.split('.')[0:])
+
+        posFile0 = basename+'.P'
+        nrmFile0 = basename+'.BumpNormals'
+        visFile0 = basename+'.Shadows'
+        albFile0 = basename+'.DiffuseFilter'
+        cauFile0 = basename+'.Caustics'
+
         posFile1 = posFile0.replace("_denoise0","_denoise1")
-        
-       
+        nrmFile1 = nrmFile0.replace("_denoise0","_denoise1")
+        visFile1 = visFile0.replace("_denoise0","_denoise1")
+        albFile1 = albFile0.replace("_denoise0","_denoise1")
+        cauFile1 = cauFile0.replace("_denoise0","_denoise1")
+
+        posExist = True
+        nrmExist = True
+        visExist = True
+        albExist = True
+        cauExist = True
+
+        #file exist check
+        padInt = len(padN)
+        for i in range(sFrame, eFrame+1):
+            frameName = '%s.%s'%(str(i).zfill(padInt),ext)     
+            
+            if posExist:
+                if not os.path.isfile('%s/%s.%s'%(root, posFile0,frameName)):
+                    print 'File not exist: %s.%s'%(posFile0,frameName)
+                    print 'Failed :: Position Pass is required.'
+                    posExist = False
+                    exit
+                else:
+                    if not os.path.isfile('%s/%s.%s'%(root, posFile1,frameName)): 
+                        print 'File not exist: %s.%s'%(posFile1,frameName)
+                        print 'Failed :: Position Pass is required.'
+                        posExist = False
+                        exit
+            
+            if nrmExist:
+                if not os.path.isfile('%s/%s.%s'%(root, nrmFile0,frameName)):
+                    print 'File not exist: %s.%s'% (nrmFile0,frameName)
+                    print 'missing nrm pass, skip nrm.'
+                    nrmExist = False
+                else:
+                    if not os.path.isfile('%s/%s.%s'%(root, nrmFile1,frameName)):
+                        print 'File not exist: %s.%s'%(nrmFile1,frameName)
+                        print 'missing nrm pass, skip nrm.'
+                        nrmExist = False
+            
+            if visExist:
+                if not os.path.isfile('%s/%s.%s'%(root, visFile0,frameName)):
+                    print 'File not exist: %s.%s'%(visFile0,frameName)
+                    print 'missing Shadows pass, skip nrm.'
+                    visExist = False
+                else:
+                    if not os.path.isfile('%s/%s.%s'%(root, visFile1,frameName)):
+                        print 'File not exist: %s.%s'%(visFile1,frameName)
+                        print 'missing Shadows pass, skip nrm.'
+                        visExist = False
+            
+            if albExist:
+                if not os.path.isfile('%s/%s.%s'%(root, albFile0,frameName)):
+                    print 'File not exist: %s.%s'%(albFile0,frameName)
+                    print 'missing DiffuseFilter pass, skip nrm.'
+                    albExist = False
+                else:
+                    if not os.path.isfile('%s/%s.%s'%(root, albFile1,frameName)):
+                        print 'File not exist: %s.%s'%(albFile1,frameName)
+                        print 'missing DiffuseFilter pass, skip nrm.'
+                        albExist = False
+            
+            if cauExist:
+                if not os.path.isfile('%s/%s.%s'%(root, cauFile0,frameName)):
+                    print 'File not exist: %s.%s'%(cauFile0,frameName)
+                    print 'missing Caustics pass, skip nrm.'
+                    cauExist = False
+                else:
+                    if not os.path.isfile('%s/%s.%s'%(root, cauFile1,frameName)):
+                        print 'File not exist: %s.%s'%(cauFile1,frameName)
+                        print 'missing Caustics pass, skip nrm.'
+                        cauExist = False
+
 
         batCmd = 'REM #%d Denoise %s\n'%(c, key.replace('_denoise0',''))
         batCmd = batCmd + 'set sFrame=%s\n'%sFrame
@@ -70,6 +148,20 @@ def genCmd(listbox,root,tar,aov,sFrame,eFrame,ext,padN):
         batCmd = batCmd + '--rgb-1 %s/%s.%s.%s '%(root,rgbFile1,padN,ext)
         batCmd = batCmd + '--pos-0 %s/%s.%s.%s '%(root,posFile0,padN,ext)
         batCmd = batCmd + '--pos-1 %s/%s.%s.%s '%(root,posFile1,padN,ext)
+
+        if albExist:
+            batCmd = batCmd + '--alb-0 %s/%s.%s.%s '%(root,albFile0,padN,ext)
+            batCmd = batCmd + '--alb-1 %s/%s.%s.%s '%(root,albFile1,padN,ext)
+        if nrmExist:
+            batCmd = batCmd + '--nrm-0 %s/%s.%s.%s '%(root,nrmFile0,padN,ext)
+            batCmd = batCmd + '--nrm-1 %s/%s.%s.%s '%(root,nrmFile1,padN,ext)
+        if visExist:
+            batCmd = batCmd + '--vis-0 %s/%s.%s.%s '%(root,visFile0,padN,ext)
+            batCmd = batCmd + '--vis-1 %s/%s.%s.%s '%(root,visFile1,padN,ext)
+        if cauExist:
+            batCmd = batCmd + '--cau-0 %s/%s.%s.%s '%(root,cauFile0,padN,ext)
+            batCmd = batCmd + '--cau-1 %s/%s.%s.%s '%(root,cauFile1,padN,ext)
+
         batCmd = batCmd + '--start-frame %sFrame% --end-frame %eFrame% '
         batCmd = batCmd + '--kc_1 0.45 --kc_2 0.45 --kc_4 0.45 --kf 0.6 --radius 10 --renderer redshift --frame-radius 1 --quality production '
         batCmd = batCmd + '--gpu ' #comment out this line if use openCL
@@ -87,14 +179,14 @@ def main():
     defaultPath=os.path.abspath(__file__)
     options={}
     options['initialdir'] = defaultPath
-    options['title'] = "source folder location"
+    options['title'] = "Source folder location"
     root=tkFileDialog.askdirectory(**options)
     
     
     
     #print 'source folder %s.\n'%root
     options['initialdir']=root
-    options['title'] = "target folder location"
+    options['title'] = "Target folder location"
     tar=tkFileDialog.askdirectory(**options)
     #print 'target folder %s.\n'%tar
     
@@ -102,7 +194,7 @@ def main():
     grp=groupby(sourceFiles, lambda x: '.'.join(os.path.basename(x).split('.')[0:-2]))
 
     tkRoot = tk.Tk()
-    tkRoot.title('redshift denoise')
+    tkRoot.title('Redshift denoise')
     label = tk.Label(tkRoot,text = 'Select AOVs to denoise.')
     listbox = tk.Listbox(tkRoot,selectmode=tk.EXTENDED)
     aov=[]
