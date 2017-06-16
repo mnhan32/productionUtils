@@ -33,10 +33,10 @@ import os,sys, time
 import json
 
 
-def main(args):
+def main(inputAnime, configPath):
     #file open 
     try:
-        result = cmds.file(args[1], o=True, f=True )
+        result = cmds.file(inputAnime, o=True, f=True )
         
         basename = '.'.join(os.path.basename(args[1]).split('.')[0:-1])+'.json'
         
