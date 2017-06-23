@@ -12,142 +12,143 @@ def returnWEFXTag(inputName):
 def swapReference(config):
     sceneName = cmds.file(q=True, sceneName=True)
     refs = cmds.file(q=True, r=True)
-    print config
+    #print config
     if refs:
-        for ref in refs:
+        for ref in refs:                    
             rfn = cmds.referenceQuery(ref, rfn=True)
             fpath = cmds.referenceQuery(rfn, filename=True, wcn=True)
             if cmds.referenceQuery(rfn, il=True):
                 print '%s is loaded'%rfn
+                return True
             else:
                 baseRig = os.path.basename(fpath)
                 rigName = baseRig.split('_')[0]    #need to fix if naming change
-                print rigName
+                #print rigName
                 if rigName in config.keys():
                     print 'MATCH'
                     targetRig = os.path.join(config[rigName]['animRigPath'], baseRig)
-                    print targetRig
+                    #print targetRig
                     if os.path.isfile(targetRig):
                         print 'REF FILE'
                         cmds.file(targetRig, lr=rfn)
                     return True
                 else:
                     print 'config key: %s not existed.'%rigName
-                    return False
+                    return False 
     else:
         print 'there is no reference existed in file %s'%sceneName
         return False
 
-def exportAnimationNode(outPath, config):
+#Naming need to change if rig file naming change
+def exportAnimationNode(outPath, config, tarSet):
+    print 'entrering animation node exporting stage.'
     #export animation node, and json
-    ctlNs = cmds.ls("*:WEFX_*_control", type='objectSet')
-    ctl = cmds.ls("WEFX_*_control", type='objectSet')#if no namespace
+    ctlNs = cmds.ls("*:WEFX_*_*", type='objectSet')
+    ctl = cmds.ls("WEFX_*_*", type='objectSet')#if no namespace
     target = ctlNs + ctl
 
-    #print outPath
-    #print target
-    
-    animationNodeType = ['animCurveTA', 'animCurveTL', 'animCurveTT', 'animCurveTU']
-    #config = getJsonObj(configPath, configFile) 
+    availableSet = getSelectionSetMember(config, 'ctrlSet')
+    #print availableSet
+    if not availableSet:
+        sceneName = cmds.file(q=True, sceneName=True)
+        print 'no aviableSet in the file %s'%sceneName
+        return False
     count = 0
-    for k in target:
-        count += 1
-        animData={}
+    animData={}
+    allNode = []
+    for k in availableSet:
+        tag = availableSet[k]['tag']
+        sel = availableSet[k]['member']
+        allNode += sel
+        animationNodeType =availableSet[k]['anmNodeType']
+        #print animationNodeType
+
+        animData[count] = {}
         nspace = cmds.ls(k,l=True,sns=True)[1]
         if nspace==':':
-            nspace = ''                   
-        selShape = cmds.listRelatives(k, f=True, ni=True)
-        sel = []
-        animData['namespace'] = nspace
-        tag = returnWEFXTag(k)
-        if tag[0] == 'WEFX':
-            #print tag
-            #print config
-            if tag[1] in config.keys():   
-                #print 'here2'
-                #print '%s.WEFX_version'%k
-                version = cmds.getAttr('%s.WEFX_version'%k)     
-                     
-                animData['targetAsset'] = tag[1]#get name from ctrlset name
-                filePattern = '%s_*.%s'%( config[tag[1]]['animRigName'], config[tag[1]]['animRigType'])#need to fix if naming change
-                targetPath = os.path.join(config[tag[1]]['animRigPath'],filePattern)
-                #print filePattern
-                #print targetPath
-                fileList = glob.glob(targetPath)
-                #print fileList
-                animData['targetRigFile'] = sorted(fileList)[-1]
-                #print 'HERE'
-                if not version == 0:
-                    diffVersionFile =  config[tag[1]]['animRigName']+'V%s'%version.zfill(2)+ config[tag[1]]['animRigType']#need to fix if naming change
-                    if os.path.isfile(diffVersionFile):
-                        animData['targetRigFile'] = diffVersionFile
+            nspace = ''           
+        animData[count]['namespace'] = nspace
+
+        #print nspace
                 
-        animData['animCtl'] = {}
-        animData['nonKeyCtl'] = {}
+        animData[count]['targetAsset'] = tag
+        filePattern = '%s_*.%s'%(config[tag]['animRigName'], config[tag]['animRigType'])#need to fix if naming change
+        targetPath = os.path.join(config[tag]['animRigPath'],filePattern)
+        fileList = glob.glob(targetPath)
+        animData[count]['targetRigFile'] = sorted(fileList)[-1]
+
+        version = cmds.getAttr('%s.WEFX_version'%k)    
+        #print version
+        if not version == 0:
+            diffVersionFile =  config[tag[1]]['animRigName']+'V%s'%version.zfill(2)+ config[tag[1]]['animRigType']#need to fix if naming change
+            if os.path.isfile(diffVersionFile):
+                animData[count]['targetRigFile'] = diffVersionFile
+        
+        animData[count]['animCtl'] = {}
+        animData[count]['nonKeyCtl'] = {}
         animNodes = []
-        #print 'There2'  
-        for i in selShape:
-            node = cmds.listRelatives(i, p=True, type='transform', f=True)[0]     
-            if not node in sel:
-                sel.append(node)
-                availableAttrs = cmds.listAttr(node, v=True, k=True, u=True)
-                #print node, availableAttrs
-                if availableAttrs:                
-                    for a in availableAttrs:
-                        aNode = cmds.listConnections('%s.%s'%(node, a), s=True, d=False, scn=True)                    
-                        if aNode:
-                            #write connection
-                            for n in aNode:                            
-                                if cmds.objectType(n) in animationNodeType:   
-                                    if not node in animData['animCtl'].keys():
-                                        animData['animCtl'][node] = {}      
-                                    animData['animCtl'][node][a] = n
-                                    animNodes.append(n)                                                        
-                        else:
-                            #write data
-                            currentVal = cmds.getAttr('%s.%s'%(node, a))
-                            if not node in animData['nonKeyCtl'].keys():
-                                animData['nonKeyCtl'][node] = {}
-                            animData['nonKeyCtl'][node][a] = currentVal
-        #print 'There4'                    
-        cmds.select(sel, r=True)
-        if 'animCtl' in animData.keys():
-            sceneName = cmds.file(q=True, sceneName=True)
-            anmNodeFile = 'anmNode.' + '.'.join(sceneName.split('.')[-3:])
-            extFile = os.path.join(outPath, anmNodeFile )
-            tmp = 'anmNode.' + '.'.join(sceneName.split('.')[-3:-1]) + '.json'
-            extJson = os.path.join(outPath,tmp)
-            #print extFile
-            #print extJson
-            outFile = cmds.file(extFile, force=True, type='mayaAscii',eas=True)
-            animData['animFile'] = outFile
 
-        #store output init file path
-        initAnmFileName = '.'.join(sceneName.split('.')[-3:]
-        animData['outFile'] = os.path.join(outPath,initAnmFileName)
+        for node in sel:
+            availableAttrs = cmds.listAttr(node, v=True, k=True, u=True)
 
-        with open( extJson, 'w') as f:
-            json.dump(animData,f)
-        return extJson
-        print 'finish exporting animation data.'
+            if availableAttrs:                
+                for a in availableAttrs:
+                    aNode = cmds.listConnections('%s.%s'%(node, a), s=True, d=False, scn=True)                    
+                    if aNode:
+                        #write connection
+                        for n in aNode:                            
+                            if cmds.objectType(n) in animationNodeType:   
+                                if not node in animData[count]['animCtl'].keys():
+                                    animData[count]['animCtl'][node] = {}      
+                                animData[count]['animCtl'][node][a] = n
+                                animNodes.append(n)                                                        
+                    else:
+                        #write data
+                        currentVal = cmds.getAttr('%s.%s'%(node, a))
+                        if not node in animData[count]['nonKeyCtl'].keys():
+                            animData[count]['nonKeyCtl'][node] = {}
+                        animData[count]['nonKeyCtl'][node][a] = currentVal
+                  
+    cmds.select(allNode, r=True)
+    sceneName = cmds.file(q=True, sceneName=True)
+    anmNodeFile = 'anmNode.' + '.'.join(sceneName.split('.')[-3:])
+    extFile = os.path.join(outPath, anmNodeFile )
+    tmp = 'anmNode.' + '.'.join(sceneName.split('.')[-3:-1]) + '.json'
+    extJson = os.path.join(outPath,tmp)
+    outFile = cmds.file(extFile, force=True, type='mayaAscii',eas=True)
+    animData[count]['animFile'] = outFile
+
+    count += 1
+
+    with open( extJson, 'w') as f:
+        json.dump(animData,f)
+    return extJson
+    print 'finish exporting animation data.'
+
 
 def generateCleanAnimation(config):
-    if os.path.isfile(config['targetRigFile']):
-        ref = fName=cmds.file(config['targetRigFile'],r=True,ignoreVersion=True,mergeNamespacesOnClash=False,ns=config['namespace'],options="v=0;")
+    print 'generate clean animation file stage'
+    for g in config:
+        if not g == 'outFile':
+            print config[g]['targetRigFile']
+            if os.path.isfile(config[g]['targetRigFile']):
+                ref =cmds.file(config[g]['targetRigFile'],r=True,ignoreVersion=True,mergeNamespacesOnClash=False,ns=config[g]['namespace'],options="v=0;")
+            
+            if 'animFile' in config[g].keys():
+                cmds.file(config[g]['animFile'], i=True, namespace=":", options="mo=0")
+                for i in config[g]['animCtl'].keys():
+                    for attr in config[g]['animCtl'][i].keys():
+                        cmds.connectAttr('%s.output'%config[g]['animCtl'][i][attr], '%s.%s'%(i,attr), f=True)
 
-    if 'animFile' in config.keys():
-        cmds.file(config['animFile'], i=True, namespace=":", options="mo=0")
-        for i in config['animCtl'].keys():
-            for attr in config['animCtl'][i].keys():
-                cmds.connectAttr('%s.output'%config['animCtl'][i][attr], '%s.%s'%(i,attr), f=True)
-
-    for i in config['nonKeyCtl'].keys():
-        for attr in config['nonKeyCtl'][i].keys():
-            cmds.setAttr('%s.%s'%(i,attr), config['nonKeyCtl'][i][attr])
+            for i in config[g]['nonKeyCtl'].keys():
+                for attr in config[g]['nonKeyCtl'][i].keys():
+                    cmds.setAttr('%s.%s'%(i,attr), config[g]['nonKeyCtl'][i][attr])
 
 
-def extendAnimPrePostRoll(selection, attrs, sf, ef, preRollNum, postRollNum, defaultNum, defaultVal):
+def extendAnimPrePostRoll(selection, sf, ef, preRollNum, postRollNum, defaultNum, defaultValFile):
     for sel in selection:
+        # find available attrs
+        attrs = cmds.listAttr(sel, v=True, k=True, u=True)
         for attr in attrs:
             keys = cmds.keyframe(sel, at=attr, q=True)
             if keys:
@@ -188,7 +189,6 @@ def extendAnimPrePostRoll(selection, attrs, sf, ef, preRollNum, postRollNum, def
                 else:
                     pass
 
-
 def setPrePostRoll(preRoll, postRoll, preRollNum, postRollNum, obj, attr):
     keys = cmds.keyframe(sel, at=attr, q=True)
     if preRoll:
@@ -201,29 +201,32 @@ def setPrePostRoll(preRoll, postRoll, preRollNum, postRollNum, obj, attr):
             cmds.setInfinity(obj, at=attr, poi='linear')
         postRollFrame = keys[-1] - postRollNum
         cmds.setKeyframe(obj, at=attr, insert=True, t=(postRollFrame,postRollFrame))
-    
+
+
 def preRollToDefault(defaultNum, defaultVal, obj, attr):
     keys = cmds.keyframe(sel, at=attr, q=True)
     rollToDefaultFrame = keys[0]-defaultNum
     cmds.setKeyframe(obj, at=attr, t=(rollToDefaultFrame,rollToDefaultFrame), v=defaultVal)
-    
+
 
 def getSelectionSetMember(config, targetSet):        
     ctlNs = cmds.ls("*:WEFX_*_*", type='objectSet')
     ctl = cmds.ls("WEFX_*_*", type='objectSet')#if no namespace
     target = ctlNs + ctl
 
-    avaiableSet = {}
+    availableSet = {}
 
     if target:
         for k in target:
             tag = returnWEFXTag(k)             
             selShape = cmds.listRelatives(k, f=True, ni=True)
             sel = []
-            avaiableSet = {}
+            availableSet = {}
             if tag[0] == 'WEFX':
-                if tag[1] in config.keys(): 
+                if tag[1] in config.keys():
+                        
                     if tag[2] == config[tag[1]][targetSet]:
+                        availableSet[k] = {}
                         selShape = cmds.listRelatives(k, f=True, ni=True)
                         sel = []
 
@@ -231,10 +234,29 @@ def getSelectionSetMember(config, targetSet):
                             node = cmds.listRelatives(i, p=True, type='transform', f=True)[0]     
                             if not node in sel:
                                 sel.append(node) 
-                        avaiableSet[k] = sel
+                        availableSet[k]['member'] = sel
+                        availableSet[k]['tag'] = tag[1]
+                        availableSet[k]['anmNodeType'] =  config[tag[1]]['anmNodeType']
     
     if availableSet:
-        return avaiableSet
+        return availableSet
     else:
         return False
-    
+
+def compareValToDefault(val, config):
+    pass
+
+def getAvailableAttrs(sel, excludeNode=None):
+    attrs = cmds.listAttr(sel, v=True, k=True)
+    outAttrs=[]
+    for k in attrs:
+        connection = cmds.listConnections('%s.%s'%(i,k), s=True, d=False)
+        if connection:
+            if excludeNode:
+                if cmds.objectType(connection[0]) in excludeNode:
+                    outAttrs.append(k)
+        else:
+            outAttrs.append(k)
+
+def getDefaultVal(sel, attr):
+    return cmds.attributeQuery(sel, node=sel, ld=True) 

@@ -42,7 +42,9 @@ def getConfig(configName, path=None):
         cfgfile = os.path.join(pwd,'../config/CFX_Rig.cfg')
     else:
          cfgfile = os.path.join(pwd,configName)
+
     try:
+        cfgfile = os.path.abspath(cfgfile)
         f = open(cfgfile)
         config = json.load(f)
         f.close()

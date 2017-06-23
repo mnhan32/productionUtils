@@ -10,7 +10,7 @@ import json
 
 #def generateDefault(sourceFile, tarJson, tarGeo, selSet):
 def generateDefault(jsonObj, tarJson):
-    
+
     selShape = cmds.listRelatives(jsonObj['animSet'], f=True)
     
     sel=[]
@@ -18,13 +18,14 @@ def generateDefault(jsonObj, tarJson):
         node = cmds.listRelatives(i, p=True, type='transform', f=True)[0]
         if not node in sel:
             sel.append(node)
-    
+
     data = []
     ctrls = {}
     ctrls['name'] = jsonObj['alias']
     ctrls['sourcefile'] = os.path.join( jsonObj['animPath'], jsonObj['animRig'])
     ctrls['timestamp'] = time.ctime(os.path.getmtime(ctrls['sourcefile']))
     ctrls['animSet'] = jsonObj['animSet']
+  
     for i in sel:
         availableAttrs = cmds.listAttr(i, v=True, k=True, u=True)
         
@@ -63,6 +64,7 @@ def main(config, configPath):
 
         basename = '.'.join(config['animRig'].split('.')[0:-1]) + '.json'
         tarJson = os.path.join(configPath, basename)
+
         generateDefault(config, tarJson)
         cmds.quit(force=True)
         print 'Finished generate default json for %s'%config['alias']
