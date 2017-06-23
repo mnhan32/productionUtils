@@ -17,7 +17,7 @@ def generateDefault(jsonObj, tarJson):
     for i in selShape:
         node = cmds.listRelatives(i, p=True, type='transform', f=True)[0]
         if not node in sel:
-            sel.append(node) 
+            sel.append(node)
     
     data = []
     ctrls = {}

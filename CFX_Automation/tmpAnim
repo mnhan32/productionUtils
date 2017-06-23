@@ -42,12 +42,3 @@ for ref in refs:
                           
     except:
         pass
-
-
-''' 
-allC = cmds.ls(sl=True,l=True, type='transform')       
-print len(allCtrls)
-for i in allC:
-    if not i in allCtrls:
-        print i
-'''
