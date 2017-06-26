@@ -9,7 +9,7 @@ def returnWEFXTag(inputName):
     baseName = baseName.split('_')
     return baseName
 
-def swapReference(config):
+def swapReference(rigConfig):
     sceneName = cmds.file(q=True, sceneName=True)
     refs = cmds.file(q=True, r=True)
     #print config
@@ -22,32 +22,32 @@ def swapReference(config):
                 return True
             else:
                 baseRig = os.path.basename(fpath)
-                rigName = baseRig.split('_')[0]    #need to fix if naming change
+                rigName = baseRig.split('.')[0]    #need to fix if naming change
                 #print rigName
-                if rigName in config.keys():
-                    print 'MATCH'
-                    targetRig = os.path.join(config[rigName]['animRigPath'], baseRig)
+                if rigName in rigConfig.keys():
+                    print 'MATCH rigConfig %s'%rigName
+                    targetRig = os.path.join(rigConfig[rigName]['animRigPath'], baseRig)
                     #print targetRig
                     if os.path.isfile(targetRig):
                         print 'REF FILE'
                         cmds.file(targetRig, lr=rfn)
                     return True
                 else:
-                    print 'config key: %s not existed.'%rigName
+                    print 'rigConfig key: %s not existed.'%rigName
                     return False 
     else:
         print 'there is no reference existed in file %s'%sceneName
         return False
 
 #Naming need to change if rig file naming change
-def exportAnimationNode(outPath, config, tarSet):
+def exportAnimationNode(outPath, rigConfig, tarSet):
     print 'entrering animation node exporting stage.'
     #export animation node, and json
     ctlNs = cmds.ls("*:WEFX_*_*", type='objectSet')
     ctl = cmds.ls("WEFX_*_*", type='objectSet')#if no namespace
     target = ctlNs + ctl
 
-    availableSet = getSelectionSetMember(config, 'ctrlSet')
+    availableSet = getSelectionSetMember(rigConfig, 'ctrlSet')
     #print availableSet
     if not availableSet:
         sceneName = cmds.file(q=True, sceneName=True)
@@ -72,15 +72,15 @@ def exportAnimationNode(outPath, config, tarSet):
         #print nspace
                 
         animData[count]['targetAsset'] = tag
-        filePattern = '%s_*.%s'%(config[tag]['animRigName'], config[tag]['animRigType'])#need to fix if naming change
-        targetPath = os.path.join(config[tag]['animRigPath'],filePattern)
+        filePattern = '%s_*.%s'%(rigConfig[tag]['animRigName'], rigConfig[tag]['animRigType'])#need to fix if naming change
+        targetPath = os.path.join(rigConfig[tag]['animRigPath'],filePattern)
         fileList = glob.glob(targetPath)
         animData[count]['targetRigFile'] = sorted(fileList)[-1]
 
         version = cmds.getAttr('%s.WEFX_version'%k)    
         #print version
         if not version == 0:
-            diffVersionFile =  config[tag[1]]['animRigName']+'V%s'%version.zfill(2)+ config[tag[1]]['animRigType']#need to fix if naming change
+            diffVersionFile =  rigConfig[tag[1]]['animRigName']+'V%s'%version.zfill(2)+ rigConfig[tag[1]]['animRigType']#need to fix if naming change
             if os.path.isfile(diffVersionFile):
                 animData[count]['targetRigFile'] = diffVersionFile
         
@@ -145,71 +145,120 @@ def generateCleanAnimation(config):
                     cmds.setAttr('%s.%s'%(i,attr), config[g]['nonKeyCtl'][i][attr])
 
 
-def extendAnimPrePostRoll(selection, sf, ef, preRollNum, postRollNum, defaultNum, defaultValFile):
+def extendAnimPrePostRoll(selection, config, sf, ef, preRollNum, postRollNum, defaultNum):
+    print 'extend here'
     for sel in selection:
         # find available attrs
+        if not cmds.objExists(sel):
+            print '%s not exist'
+        
+        
+       # print sel
         attrs = cmds.listAttr(sel, v=True, k=True, u=True)
-        for attr in attrs:
-            keys = cmds.keyframe(sel, at=attr, q=True)
-            if keys:
-                vals = cmds.keyframe(sel, at=attr,t=(keys[0], keys[-1]), q=True, vc=True)
-                keyRange = range(int(sf), int(ef)+1)
-                matchRange = sorted(list(set(keyRange) & set(keys)))
-                if matchRange:
-                    if not matchRange[0] == sf:
-                        cmds.setKeyframe(sel, at=attr, insert=True, t=(sf,sf))
-                    if not matchRange[-1] == ef:
-                        cmds.setKeyframe(sel, at=attr, insert=True, t=(ef,ef))
+        #print attrs
+        #print '#####################'
+        if attrs:
+            for attr in attrs:
+                attrValidate = False
+                if not config == None:
+                    tarData = removeNameSapce(sel)
+                    if 'ctrl' in config.keys()   :          
+                        if tarData in config['ctrl'].keys():
+                            if attr in config['ctrl'][tarData].keys():
+                                defaultVal = config['ctrl'][tarData][attr]
+                                attrValidate = True
+                                #print defaultVal
                 else:
-                    #problem
-                    if keys[-1] < sf:
-                        if not cmds.setInfinity(sel, at=attr, q=True, poi=True)[0] == 'constant':
-                            cmds.bakeResults(sel, at=attr, t=(sf, ef), sb=1)
-                        else:
-                            cmds.setKeyframe(sel, at=attr, insert=True, t=(sf,sf))
-                            
-                    if keys[0] > ef:       
-                        if not cmds.setInfinity(sel, at=attr, q=True, pri=True)[0] == 'constant':
-                            cmds.bakeResults(sel, at=attr, t=(sf, ef), sb=1)
-                        else:
-                            cmds.setKeyframe(sel, at=attr, insert=True, t=(ef,ef)) 
-                #remove frame outside sf to ef
-                if keys[0] < sf:
-                    cmds.cutKey(sel, at=attr, t=(keys[0],sf-1), clear=True)
-                if keys[-1] > ef:
-                    cmds.cutKey(sel, at=attr, t=(ef+1,keys[-1]), clear=True)
-                setPrePostRoll(1,1,preroll,preroll,sel,attr)
-                preRollToDefault(defaultNum, defaultVal, sel, attr)
-            else:
-                sfVal = cmds.getAttr('%s.%s'%(sel,attr))
-                if not sfVal == defaultVal:
-                    cmds.setKeyframe(sel, at=attr, t=(sf,sf), v=defaultVal)
-                    setPrePostRoll(1,0,preroll,preroll,sel,attr)
-                    preRollToDefault(defaultNum, defaultVal, sel, attr)
-                else:
-                    pass
+                    connection = cmds.listConnections('%s.%s'%(sel, attr), s=True, d=True)
+                    if connection:
+                        if cmds.objectType(connection[0]) in ["animCurveTA", "animCurveTL","animCurveTT","animCurveTU"]:
+                            defaultVal = cmds.attributeQuery(attr, node=sel, ld=True)[0]
+                            attrValidate = True
+                    else:
+                        defaultVal = cmds.attributeQuery(attr, node=sel, ld=True)[0]
+                        attrValidate = True
 
-def setPrePostRoll(preRoll, postRoll, preRollNum, postRollNum, obj, attr):
-    keys = cmds.keyframe(sel, at=attr, q=True)
+                if attrValidate:
+                    #print sel, attr, defaultVal
+                    keys = cmds.keyframe(sel, at=attr, q=True)
+                    #print attr, 'KEY', keys
+                    #defaultVal = cmds.attributeQuery(attr, node=sel, ld=True)
+                    #print defaultVal
+                    
+                    #print '######--------#######'
+                    #print defaultVal, sel
+                    if keys:
+                        #print sel
+                        #print 'KEYED' 
+                        vals = cmds.keyframe(sel, at=attr,t=(keys[0], keys[-1]), q=True, vc=True)
+                        keyRange = range(int(sf), int(ef)+1)
+                        matchRange = sorted(list(set(keyRange) & set(keys)))
+                        if matchRange:
+                            if not matchRange[0] == sf:
+                                cmds.setKeyframe(sel, at=attr, insert=True, t=(sf,sf))
+                            if not matchRange[-1] == ef:
+                                cmds.setKeyframe(sel, at=attr, insert=True, t=(ef,ef))
+                            
+                        else:
+                            #problem
+                            if keys[-1] < sf:
+                                if not cmds.setInfinity(sel, at=attr, q=True, poi=True)[0] == 'constant':
+                                    cmds.bakeResults(sel, at=attr, t=(sf, ef), sb=1)
+                                else:
+                                    cmds.setKeyframe(sel, at=attr, insert=True, t=(sf,sf))
+                                    
+                            if keys[0] > ef:       
+                                if not cmds.setInfinity(sel, at=attr, q=True, pri=True)[0] == 'constant':
+                                    cmds.bakeResults(sel, at=attr, t=(sf, ef), sb=1)
+                                else:
+                                    cmds.setKeyframe(sel, at=attr, insert=True, t=(ef,ef)) 
+                        #remove frame outside sf to ef
+                        if keys[0] < sf:
+                            cmds.cutKey(sel, at=attr, t=(keys[0],sf-1), clear=True)
+                        if keys[-1] > ef:
+                            cmds.cutKey(sel, at=attr, t=(ef+1,keys[-1]), clear=True)
+                        setPrePostRoll(1,1,preRollNum,postRollNum,sel,attr)
+                        preRollToDefault(defaultNum, defaultVal, sel, attr)
+                    else:
+                        #print 'no KEY'
+                        #print sel
+                        sfVal = cmds.getAttr('%s.%s'%(sel,attr))
+                        #print 'HERE2222', sfVal, defaultVal
+                        if not sfVal == defaultVal:                    
+                            cmds.setKeyframe(sel, at=attr, t=(sf,sf), v=sfVal)
+                            #print sel  
+                            setPrePostRoll(1,0,preRollNum,postRollNum,sel,attr)
+                            #print 'done pre post'
+                            preRollToDefault(defaultNum, defaultVal, sel, attr)
+                            #print 'done to default'
+                            #print attr
+                        else:
+                            pass
+        #print '---------------------------------------'
+    print 'finish extended'
+
+def setPrePostRoll(preRoll, postRoll, preRollNum, postRollNum, obj, attr):    
+    keys = cmds.keyframe(obj, at=attr, q=True)
+    #print keys
     if preRoll:
-        if cmds.setInfinity(obj, at=attr, q=True, poi=True)[0] == 'constant':
-            cmds.setInfinity(obj, at=attr, poi='linear')
+        if cmds.setInfinity(obj, at=attr, q=True, pri=True)[0] == 'constant':
+            cmds.setInfinity(obj, at=attr, pri='linear')
         preRollFrame = keys[0] - preRollNum
         cmds.setKeyframe(obj, at=attr, insert=True, t=(preRollFrame,preRollFrame))
     if postRoll:
         if cmds.setInfinity(obj, at=attr, q=True, poi=True)[0] == 'constant':
             cmds.setInfinity(obj, at=attr, poi='linear')
-        postRollFrame = keys[-1] - postRollNum
+        postRollFrame = keys[-1] + postRollNum
         cmds.setKeyframe(obj, at=attr, insert=True, t=(postRollFrame,postRollFrame))
 
 
 def preRollToDefault(defaultNum, defaultVal, obj, attr):
-    keys = cmds.keyframe(sel, at=attr, q=True)
+    keys = cmds.keyframe(obj, at=attr, q=True)
     rollToDefaultFrame = keys[0]-defaultNum
     cmds.setKeyframe(obj, at=attr, t=(rollToDefaultFrame,rollToDefaultFrame), v=defaultVal)
 
 
-def getSelectionSetMember(config, targetSet):        
+def getSelectionSetMember(rigConfig, targetSet):        
     ctlNs = cmds.ls("*:WEFX_*_*", type='objectSet')
     ctl = cmds.ls("WEFX_*_*", type='objectSet')#if no namespace
     target = ctlNs + ctl
@@ -223,9 +272,9 @@ def getSelectionSetMember(config, targetSet):
             sel = []
             availableSet = {}
             if tag[0] == 'WEFX':
-                if tag[1] in config.keys():
+                if tag[1] in rigConfig.keys():                    
+                    if '_'.join(tag) == rigConfig[tag[1]][targetSet]:
                         
-                    if tag[2] == config[tag[1]][targetSet]:
                         availableSet[k] = {}
                         selShape = cmds.listRelatives(k, f=True, ni=True)
                         sel = []
@@ -236,7 +285,7 @@ def getSelectionSetMember(config, targetSet):
                                 sel.append(node) 
                         availableSet[k]['member'] = sel
                         availableSet[k]['tag'] = tag[1]
-                        availableSet[k]['anmNodeType'] =  config[tag[1]]['anmNodeType']
+                        availableSet[k]['anmNodeType'] =  rigConfig[tag[1]]['anmNodeType']
     
     if availableSet:
         return availableSet
@@ -260,3 +309,18 @@ def getAvailableAttrs(sel, excludeNode=None):
 
 def getDefaultVal(sel, attr):
     return cmds.attributeQuery(sel, node=sel, ld=True) 
+
+def removeNameSapce(inputData):
+    tarData = inputData.split('|') 
+    for idx in range(len(tarData)):
+        tarData[idx] = tarData[idx].split(':')[-1]
+    tarData = '|'.join(tarData)
+    return tarData
+
+def swapNameSapce(inputData, namespace):
+    tarData = inputData.split('|') 
+    for idx in range(len(tarData)):
+        tarData[idx] = tarData[idx].split(':')[-1]
+        tarData[idx] = namespace + ':' + tarData[idx] 
+    tarData = '|'.join(tarData)
+    return tarData
