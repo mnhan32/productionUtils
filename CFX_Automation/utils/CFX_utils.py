@@ -40,6 +40,8 @@ def getConfig(configName, path=None):
         cfgfile = os.path.join(pwd,'../config/config.cfg')
     elif configName == 'CFX':
         cfgfile = os.path.join(pwd,'../config/CFX_Rig.cfg')
+    elif configName == 'sj':
+        cfgfile = os.path.join(pwd,'../config/sj.json')
     else:
          cfgfile = os.path.join(pwd,configName)
 

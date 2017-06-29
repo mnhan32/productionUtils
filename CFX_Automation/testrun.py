@@ -1,9 +1,11 @@
-#from utils import CFX_shotgunInfo
-'''
+from utils import CFX_shotgunInfo
+
 import json
-result = CFX_shotgunInfo.shotgunInfo('TGB.demo.demo_0040.animation.v01.mb')
-print result
-'''
+a = ['os0040', 'os0010']
+b = ['aniTiger', 'aniTiger' ]
+CFX_shotgunInfo.shotgunInfo(a, b)
+#print result
+
 #from utils import CFX_utils
 
 #print CFX_utils.getConfig('proj')
@@ -35,5 +37,3 @@ json.dump(ab, fk)
 fk.close()
 '''
 
-aa = [0,1,2]
-print aa[-1]

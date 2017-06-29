@@ -2,30 +2,31 @@
 try:
     import maya.standalone 
     maya.standalone.initialize(name='python') 
-except: 
+except:
     pass
-import os,sys, time 
-import maya.cmds as cmds
 
+import maya.cmds as cmds
+import os, sys, time 
 import json, glob
 from utils import CFX_utils, CFX_mayaUtils, CFX_shotgunInfo
 
 def main(inputFile):
-    #file open 
+    #file open
     fileName = os.path.basename(inputFile)
     #print fileName
-    result = CFX_shotgunInfo.shotgunInfo(fileName)
+    fileData =  fileName.split('_')
+    result = CFX_shotgunInfo.shotgunInfo(fileData[0], fileData[1])
     if 'err' in result.keys():
         print result['err']
         return False
     try:
-        #open file in maya        
+        #open file in maya
         config = CFX_utils.getConfig('proj')
         rigConfig = CFX_utils.getConfig('CFX')
 
         #get to project anim folder
         tarFolder = os.path.join(result['anmPath'],'work')
-        tarFolder = os.path.join(tarFolder, 'maya')        
+        tarFolder = os.path.join(tarFolder, 'maya')
         tarFile = os.path.join(tarFolder, 'outsource.'+'.'.join(inputFile.split('.')[-3:]))
         
         initAnmFileName = '.'.join(inputFile.split('.')[-3:])
@@ -49,7 +50,7 @@ def main(inputFile):
                     cmds.file(rename = tarFile)
                     cmds.file(s=True, f=True, typ='mayaAscii')
                     print 'animation file saved'
-            
+
             #currently in shot folder
             sceneName = cmds.file(q=True, sceneName=True)
             currentDir = os.path.dirname(sceneName)
@@ -58,15 +59,10 @@ def main(inputFile):
             initAnmFileName = '.'.join(sceneName.split('.')[-3:])
             initAnmFilePath = os.path.join(currentDir,initAnmFileName)
             #extExport animation node
-            #print 'here2'
-            print anmNodeFile, jsonNodeFile
             if not os.path.isfile(anmNodeFile) and not os.path.isfile(jsonNodeFile):
                 #print 'here'
                 jsonFile = CFX_mayaUtils.exportAnimationNode(tarFolder, rigConfig, 'ctrlSet')
-
                 print 'export animation node finished'
-
-
             #create clean animation file
             anmData = CFX_utils.getConfig(jsonFile,tarFolder)
             if os.path.isfile(initAnmFilePath):
@@ -78,7 +74,6 @@ def main(inputFile):
                 cmds.file(rename = initAnmFilePath)
                 cmds.file(s=True, f=True, typ='mayaAscii')
                 print 'finish creating init animation file'
-        
         else:
             cmds.file(initAnmFilePath, o=True, f=True)
         
@@ -108,8 +103,10 @@ def main(inputFile):
                 print 'no valid default val file exist for %s, use attr default'%jsonFile            
             
             print result['headIn'], result['tailOut']
-            CFX_mayaUtils.extendAnimPrePostRoll(availableSet[k]['member'], jsonFile, result['headIn'], result['tailOut'],config['project']['preRoll'],config['project']['postRoll'],config['project']['rollToDefault'])
-        
+            CFX_mayaUtils.extendAnimPrePostRoll(availableSet[k]['member'], jsonFile, result['headIn'], result['tailOut'],config['project']['preRoll'],config['project']['preRollHold'],config['project']['postRoll'],config['project']['rollToDefault'])
+            sFrame = result['headIn'] - config['project']['preRoll'] - config['project']['preRollHold'] - config['project']['rollToDefault']
+            eFrame = result['tailOut'] + config['project']['postRoll'] 
+            cmds.playbackOptions(ast=sFrame, aet=eFrame, minTime=sFrame, maxTime=eFrame)
         print 'done extended'
         currentFilePath = cmds.file(q=True,sn=True)
         tmpF = os.path.basename(currentFilePath)
@@ -127,6 +124,6 @@ def main(inputFile):
         return False
 
 if __name__ == '__main__':
-    inputAnime = sys.argv[1]
-    main(inputAnime)
+    inputFile = sys.argv[1]
+    main(inputFile)
     sys.exit()

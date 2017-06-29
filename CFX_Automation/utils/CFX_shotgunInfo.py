@@ -1,19 +1,15 @@
 import sys, os,  json
+import CFX_utils
 
+projConfig = CFX_utils.getConfig('proj')
+rootKey = "win"
 if sys.platform == "linux" or sys.platform == "linux2":
-    rootKey = "linuxRoot"
-    sys.path.append('/U/shotgunAPI')
+    rootKey = "linux"
 elif sys.platform == "darwin":
     # MAC OS X
-    rootKey = "macRoot"
-    sys.path.append('/Volume/Utility/shotgunAPI')
-elif sys.platform == "win32" or sys.platform == "win64":
-    # Windows 32 or 64 bit
-    rootKey = "windowsRoot"
-    sys.path.append('U:/shotgunAPI')
-else:
-    print 'non supported OS platform %s'%sys.platform
-    raise
+    rootKey = "darwin"
+shotgunAPI = os.path.join(projConfig['project'][rootKey]['utils'], 'shotgunAPI')
+sys.path.append(shotgunAPI)
 
 from shotgun_api3 import Shotgun
 
@@ -25,10 +21,11 @@ def shotgunInfo(filename):
     f = open(cfgfile)
     config = json.load(f)
     f.close()
-    rootPath = config['project'][rootKey]
+    rootPath = config['project'][rootKey]['root']
     sg = Shotgun(config['shotgun']['server'],script_name=config['shotgun']['scriptName'],api_key=config['shotgun']['apiKey'])
     data = filename.split('.')
-    proj = data[0]
+        
+    proj = config['project']['name']
     seq = data[1]
     shotcode = data[2]
     task = data[3]
@@ -78,7 +75,8 @@ def shotgunInfo(filename):
         "cutIn" : shotData["entity.Shot.sg_cut_in"],
         "cutOut" : shotData["entity.Shot.sg_cut_out"]
     }
-
+    print rootPath
+    print outData
     tarfolder = os.path.join(rootPath, outData['proj'])
     tarfolder = os.path.join(tarfolder, 'sequences')
     tarfolder = os.path.join(tarfolder, outData['seq'])
