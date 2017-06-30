@@ -1,4 +1,4 @@
-import os, sys, json, fnmatch
+import os, sys, json, fnmatch, subprocess
 from PySide import QtCore, QtGui
 from ui import ui_CFX_SmedgeSubmit as baseUI
 from ui import ui_CFX_ValidationList as validationUI
@@ -230,26 +230,7 @@ class CFX_SubmitTool(QtGui.QMainWindow):
                             #self.__tarFiles.remove(i)
                         else:
                             self.__validFilePath.append(i)
-                            '''
-                            tarFilePath = self.__formFilePath(fileBaseName, episode)
-                            tarFolder =  os.path.join(tarFilePath[0], tarFilePath[1])
-                            if not os.path.isdir(tarFolder):
-                                self.__errFilePathInvalid.append(i)
-                                #print 'err tar folder path %s'%tarFilePath[0]
-                                #self.__tarFiles.remove(i)
-                            else:
-                                tarFile = os.path.join(tarFolder , tarFilePath[2])
-                                if os.path.isfile(tarFile):
-                                    #print 'err File path %s'%tarFile
-                                    if not self.__overwriteExist:
-                                        self.__tarFileExist.append(i)
-                                        #self.__tarFiles.remove(i)
-                                    else:
-                                        self.__tarFileValidate[i] = tarFilePath
-                                else:
-                                    self.__tarFileValidate[i] = tarFilePath
-                            '''
-        
+
         shotgunData = self.__getShotgunInfo(self.__validFilePath)
         for k in self.__validFilePath:
             fileBaseName = os.path.basename(k)
@@ -266,9 +247,11 @@ class CFX_SubmitTool(QtGui.QMainWindow):
                         if not self.__overwriteExist:
                             self.__tarFileExist.append(k)
                         else:
-                            self.__tarFileValidate[k] = tarFolder
+                            data = {'tarFilePath':tarFilePath, 'sFrame':shotgunData[key]['headIn'], 'eFrame':shotgunData[key]['tailOut']}
+                            self.__tarFileValidate[k] = data
                     else:
-                        self.__tarFileValidate[k] = tarFolder
+                        data = {'tarFilePath':tarFilePath, 'sFrame':shotgunData[key]['headIn'], 'eFrame':shotgunData[key]['tailOut']}
+                        self.__tarFileValidate[k] = data
                 else:
                     # file path not exited
                     self.__errFilePathInvalid.append(k)
@@ -293,41 +276,41 @@ class CFX_SubmitTool(QtGui.QMainWindow):
         else:
             return False
 
-        print result
-
-    def __formFilePath(self, filename, episode=None):
-        #toSeq = 'sequences'
-        toSeq = os.path.join(projName, 'sequences')
-        fileData =  os.path.basename(filename).split('_')
-        shotNum = fileData[0][-4:]                    
-        seqName = fileData[0][:-4]
-        seqFolder = seqName
-        if episode:
-            shotNum = fileData[1][-4:]
-            seqName = fileData[1][:-4]
-            seqFolder = '_'.join([episode, seqName])
-
-        tarfileName = '_'.join(fileData[-2:])
-        toTarSeq = os.path.join(toSeq, seqFolder)
-        shotFolder = seqName+shotNum
-        toShotFolder = os.path.join(toTarSeq, shotFolder)
-        toTaskName = os.path.join(toShotFolder, projConfig['project']['anm'])
-        toWorkFolder = os.path.join(toTaskName, 'work')
-        toMayaWorkFolder = os.path.join(toWorkFolder , 'maya')
-
-        return [projRoot, toMayaWorkFolder, tarfileName]
-      
-        #return [projRoot, projName, toMayaWorkFolder, tarfileName]
+        #print result
       
     def __smedgeSubmit(self):
-        pwd = os.path.abspath(__file__)
-        pythonScript = os.path.join(pwd, os.path.join(projConfig['action']['path'],projConfig['action']['script']))
-        
+        pwd = os.path.dirname(os.path.abspath(__file__))
+        #smedge command path define in config
+        smedgeCmd = projConfig['smedge'][rootKey]  
+
+        #script name defined in config
+        pythonScript = os.path.join(pwd, projConfig['action']["outsourceAnm"]['script'])  
         for i in self.__tarFileValidate.keys():
             sjTemplate = CFX_utils.getConfig('sj')
-            sjTemplate['Scene'] = i
-            sjTemplate['name'] = os.path.basename(i)
-            sjTemplate['PyScriptPath']
+            sjTemplate['Scene'] = i            
+            sjTemplate['PyScriptPath'] = pythonScript
+            tarFilePath = self.__tarFileValidate[i]['tarFilePath']
+            tarFolder = os.path.dirname(tarFilePath)
+            tarFile = os.path.basename(tarFilePath)
+            sjTemplate['myOutDir'] = tarFolder
+            sjTemplate['myOutFile'] = tarFile
+            sjTemplate['Name'] = tarFile
+            if self.__tarFileValidate[i]['sFrame']:
+                sFrame = self.__tarFileValidate[i]['sFrame']
+            else:
+                sFrame = 1
+            
+            if self.__tarFileValidate[i]['eFrame']:
+                eFrame = self.__tarFileValidate[i]['eFrame']
+            else:
+                eFrame = 1
+            
+            if eFrame < sFrame :
+                sFrame = 0 
+                eFrame = 0
+
+            sjTemplate['Range'] = '%s - %s'%(sFrame, eFrame)
+            sjTemplate['PacketSize'] = eFrame - sFrame + 1
 
             sjFileName =  '.'.join(os.path.basename(i).split('.')[:-1])
             sjFile = os.path.join(self.__usrDataPath, (sjFileName+'.sj'))
@@ -341,6 +324,10 @@ class CFX_SubmitTool(QtGui.QMainWindow):
                 f.write('\n')
             #print sjTemplate
             f.close()
+
+            #smedgeSubmitCommand = '%s -fromFile %s'%(smedgeCmd, sjFile)
+            subprocess.Popen([smedgeCmd, '-fromFile', sjFile])
+            #print smedgeSubmitCommand
             self.__validationList.close()
 
     def __genConfig(self):

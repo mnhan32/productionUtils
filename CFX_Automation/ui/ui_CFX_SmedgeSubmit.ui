@@ -96,7 +96,13 @@
     <addaction name="actionOverwrite"/>
     <addaction name="actionShow_Valiadtion"/>
    </widget>
+   <widget class="QMenu" name="menuAction">
+    <property name="title">
+     <string>Action</string>
+    </property>
+   </widget>
    <addaction name="menuMenu"/>
+   <addaction name="menuAction"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
   <action name="actionSet_default_path">

@@ -1,9 +1,11 @@
+'''
 from utils import CFX_shotgunInfo
 
 import json
 a = ['os0040', 'os0010']
 b = ['aniTiger', 'aniTiger' ]
 CFX_shotgunInfo.shotgunInfo(a, b)
+'''
 #print result
 
 #from utils import CFX_utils
@@ -36,4 +38,12 @@ fk = open(dw, 'w')
 json.dump(ab, fk)
 fk.close()
 '''
-
+'''
+import os
+a = ['D:\\', 'testTGB', 'a']
+print os.path.join(*a)
+'''
+a = 'test_das_v04.ma'
+h = a.split('_')
+h.insert(-1, '3')
+print '.'.join(a.split('.')[:-1]) + '.json'

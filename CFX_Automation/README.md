@@ -1,4 +1,4 @@
-# WEFX CFX Automation 
+# CFX Automation 
 
 ## Requirement
 + ### Requrire Smedge submit.exe
@@ -10,7 +10,7 @@
     + require internet connection
 
 + ### Require Python 
-    + Python 2.6+
+    + Python2.6+
 
 ## Incoming Animation File Rules
 + ### Naming

@@ -24,7 +24,7 @@ def swapReference(rigConfig):
                 return True
             else:
                 baseRig = os.path.basename(fpath)
-                rigName = baseRig.split('.')[0]#get first part of filename
+                rigName = baseRig.split('_')[0]#get first part of filename
 
                 if rigName in rigConfig.keys():
                     targetRig = os.path.join(rigConfig[rigName]['animRigPath'], baseRig)
@@ -33,15 +33,15 @@ def swapReference(rigConfig):
                         cmds.file(targetRig, lr=rfn)
                     return True
                 else:
-                    print 'rigConfig key: %s not existed.'%rigName
+                    print 'CFX AUTOMATION _ swapReference _ : rigConfig key: %s not existed.'%rigName
                     return False 
     else:
-        print 'there is no reference existed in file %s'%sceneName
+        print 'CFX AUTOMATION _ swapReference _ : there is no reference existed in file %s'%sceneName
         return False
 
 #Naming need to change if rig file naming change
 #Selection set naming convention WEFX_ASSETNAME_SETNAME
-def exportAnimationNode(outPath, rigConfig, tarSet):    
+def exportAnimationNode(outPath, rigConfig, anmNodeFile, jsonNodeFile, tarSet):    
     ctlNs = cmds.ls("*:WEFX_*_*", type='objectSet')
     ctl = cmds.ls("WEFX_*_*", type='objectSet')#if no namespace
     target = ctlNs + ctl
@@ -52,7 +52,7 @@ def exportAnimationNode(outPath, rigConfig, tarSet):
     
     if not availableSet:
         sceneName = cmds.file(q=True, sceneName=True)
-        print 'no aviableSet in the file %s'%sceneName
+        print 'CFX AUTOMATION _ exportAnimationNode _ : no aviableSet in the file %s'%sceneName
         return False
 
     count = 0
@@ -114,28 +114,26 @@ def exportAnimationNode(outPath, rigConfig, tarSet):
     #allNode contains all animationCurve Node that needs to be exported.
     cmds.select(allNode, r=True)
     sceneName = cmds.file(q=True, sceneName=True)
-    anmNodeFile = 'anmNode.' + '.'.join(sceneName.split('.')[-3:])
     extFile = os.path.join(outPath, anmNodeFile )
-    tmp = 'anmNode.' + '.'.join(sceneName.split('.')[-3:-1]) + '.json'
-    extJson = os.path.join(outPath,tmp)
+    extJson = os.path.join(outPath,jsonNodeFile)
     outFile = cmds.file(extFile, force=True, type='mayaAscii',eas=True)
     animData[count]['animFile'] = outFile
-
     count += 1
 
     #write json file of animation data
     with open( extJson, 'w') as f:
         json.dump(animData,f)
     return extJson
-    print 'finish exporting animation data.'
+    cmds.select(cl=True)
+    print 'CFX AUTOMATION _ exportAnimationNode _ : finish exporting animation data.'
 
 
 #recreate a clean animation file, this is our init file
 def generateCleanAnimation(config):
-    print 'generate clean animation file stage'
+    print 'CFX AUTOMATION _ generateCleanAnimation _ : generate clean animation file stage'
     for g in config:
         if not g == 'outFile':
-            print config[g]['targetRigFile']
+            #print config[g]['targetRigFile']
             if os.path.isfile(config[g]['targetRigFile']):
                 ref =cmds.file(config[g]['targetRigFile'],r=True,ignoreVersion=True,mergeNamespacesOnClash=False,ns=config[g]['namespace'],options="v=0;")
 
@@ -151,12 +149,11 @@ def generateCleanAnimation(config):
 
 
 #do preroll and postroll
-def extendAnimPrePostRoll(selection, config, sf, ef, preRollNum, preRollHold, postRollNum, defaultNum):
-    print 'extend here'
+def extendAnimPrePostRoll(selection, config, sf, ef, preRollNum, preRollHold, cfxPreRollNum, postRollNum, defaultNum):
     for sel in selection:
         # find available attrs
         if not cmds.objExists(sel):
-            print '%s not exist'
+            print 'CFX AUTOMATION _ extendAnimPrePostRoll _ : %s not exist'%sel
 
 
         attrs = cmds.listAttr(sel, v=True, k=True, u=True)
@@ -211,44 +208,63 @@ def extendAnimPrePostRoll(selection, config, sf, ef, preRollNum, preRollHold, po
                             cmds.cutKey(sel, at=attr, t=(keys[0],sf-1), clear=True)
                         if keys[-1] > ef:
                             cmds.cutKey(sel, at=attr, t=(ef+1,keys[-1]), clear=True)
-                        setPrePostRoll(1,1,preRollNum,postRollNum,sel,attr,preRollHold)
+                        
+                        setPrePostRoll(preRollNum, postRollNum, sel, attr)
+                        setPreRollFrameHold(preRollHold,sel,attr)
+                        setCFXPreRoll(cfxPreRollNum, sel, attr)
                         preRollToDefault(defaultNum, defaultVal, sel, attr)
                     else:
                         sfVal = cmds.getAttr('%s.%s'%(sel,attr))
                         if not sfVal == defaultVal:                    
                             cmds.setKeyframe(sel, at=attr, t=(sf,sf), v=sfVal)
-                            setPrePostRoll(1,0,preRollNum,postRollNum,sel,attr,preRollHold)
+                            setPrePostRoll(preRollNum,0,sel,attr)
+                            setPreRollFrameHold(preRollHold, sel,attr)
+                            setCFXPreRoll(cfxPreRollNum, sel, attr)
                             preRollToDefault(defaultNum, defaultVal, sel, attr)
                         else:
                             pass
     
-    print 'finish extended'
+    print 'CFX AUTOMATION _ extendAnimPrePostRoll _ : finish extended'
 
+def setPreRollFrameHold(preRollHold, obj, attr):
+    if not preRollHold == 0:
+        if not cmds.setInfinity(obj, at=attr, q=True, pri=True)[0] == 'constant':
+            cmds.setInfinity(obj, at=attr, pri='constant')
+        keys = cmds.keyframe(obj, at=attr, q=True)
+        preRollHoldFrame = keys[0] - preRollHold
+        cmds.bakeResults(obj, at=attr, t=(preRollHoldFrame, keys[0]),simulation=False,sampleBy=1,disableImplicitControl=True,preserveOutsideKeys=True,sparseAnimCurveBake=False,removeBakedAttributeFromLayer=False,removeBakedAnimFromLayer=False, bakeOnOverrideLayer=False)
 
-def setPrePostRoll(preRoll, postRoll, preRollNum, postRollNum, obj, attr, preRollHold=0):    
+def setCFXPreRoll(CFXPreRollNum, obj, attr):
+    if not CFXPreRollNum == 0:
+        setPrePostRoll(1, 0, obj, attr)
+        keys = cmds.keyframe(obj, at=attr, q=True)
+        offset = (CFXPreRollNum-1)*-1
+        cmds.keyframe(obj, at=attr, e=True, iub=True, r=True, o="over", tc= offset, t=(keys[0],keys[0]))
+        cmds.bakeResults(obj, at=attr, t=(keys[0]-offset, keys[0]),simulation=False,sampleBy=1,disableImplicitControl=True,preserveOutsideKeys=True,sparseAnimCurveBake=False,removeBakedAttributeFromLayer=False,removeBakedAnimFromLayer=False, bakeOnOverrideLayer=False)
+        #pass
+
+def setPrePostRoll(preRollNum, postRollNum, obj, attr):    
     keys = cmds.keyframe(obj, at=attr, q=True)
-    #print keys
-    if preRoll:
+    if not preRollNum == 0:
         if cmds.setInfinity(obj, at=attr, q=True, pri=True)[0] == 'constant':
             cmds.setInfinity(obj, at=attr, pri='linear')
         preRollFrame = keys[0] - preRollNum
-        preRollHoldFrame = preRollFrame - preRollHold
-        cmds.setKeyframe(obj, at=attr, insert=True, t=(preRollFrame,preRollFrame))
-        cmds.setInfinity(obj, at=attr, pri='constant')
-        cmds.bakeResults(obj, at=attr, t=(preRollHoldFrame, preRollFrame),simulation=False,sampleBy=1,disableImplicitControl=True,preserveOutsideKeys=True,sparseAnimCurveBake=False,removeBakedAttributeFromLayer=False,removeBakedAnimFromLayer=False, bakeOnOverrideLayer=False)
-        #cmds.setKeyframe(obj, at=attr, insert=True, t=(preRollHoldFrame,preRollHoldFrame))
+        cmds.bakeResults(obj, at=attr, t=(preRollFrame, keys[0]),simulation=False,sampleBy=1,disableImplicitControl=True,preserveOutsideKeys=True,sparseAnimCurveBake=False,removeBakedAttributeFromLayer=False,removeBakedAnimFromLayer=False, bakeOnOverrideLayer=False)
+        #cmds.setKeyframe(obj, at=attr, insert=True, t=(preRollFrame,preRollFrame))        
 
-    if postRoll:
+    if not postRollNum == 0:
         if cmds.setInfinity(obj, at=attr, q=True, poi=True)[0] == 'constant':
             cmds.setInfinity(obj, at=attr, poi='linear')
-        postRollFrame = keys[-1] + postRollNum
-        cmds.setKeyframe(obj, at=attr, insert=True, t=(postRollFrame,postRollFrame))
+        postRollFrame = keys[-1] + postRollNum        
+        cmds.bakeResults(obj, at=attr, t=(keys[-1], postRollFrame),simulation=False,sampleBy=1,disableImplicitControl=True,preserveOutsideKeys=True,sparseAnimCurveBake=False,removeBakedAttributeFromLayer=False,removeBakedAnimFromLayer=False, bakeOnOverrideLayer=False)
+        #cmds.setKeyframe(obj, at=attr, insert=True, t=(postRollFrame,postRollFrame))
 
 def preRollToDefault(defaultNum, defaultVal, obj, attr):
-    keys = cmds.keyframe(obj, at=attr, q=True)
-    rollToDefaultFrame = keys[0]-defaultNum
-    cmds.setKeyframe(obj, at=attr, itt='flat', ott='flat', t=(rollToDefaultFrame,rollToDefaultFrame), v=defaultVal)
-    #cmds.setInfinity(obj, at=attr, pri='constant')
+    if not defaultNum == 0:
+        keys = cmds.keyframe(obj, at=attr, q=True)
+        rollToDefaultFrame = keys[0]-defaultNum
+        cmds.setKeyframe(obj, at=attr, itt='flat', ott='flat', t=(rollToDefaultFrame,rollToDefaultFrame), v=defaultVal)
+        #cmds.setInfinity(obj, at=attr, pri='constant')
 
 #return all available selection set member
 def getSelectionSetMember(rigConfig, targetSet):        
