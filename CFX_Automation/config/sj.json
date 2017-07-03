@@ -12,7 +12,7 @@
     "ExtendIgnoredErrors" : "Engine Default",
     "LimitMemoryUsage" : "Engine Default",
     "JobFinishedEvt" :"C:\\importDB.bat",
-    "FailureLimit" : -1,
+    "FailureLimit" : 1,
     "myOutDir" : "None",
     "myOutFile" : "None",
     "Name" : "",

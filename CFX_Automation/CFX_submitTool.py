@@ -275,7 +275,6 @@ class CFX_SubmitTool(QtGui.QMainWindow):
             return result
         else:
             return False
-
         #print result
       
     def __smedgeSubmit(self):

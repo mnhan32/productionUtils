@@ -11,7 +11,6 @@ import argparse, os, sys, time, json, glob
 from utils import CFX_utils, CFX_mayaUtils, CFX_shotgunInfo
 
 def main(args):
-
     config = CFX_utils.getConfig('proj')
     rigConfig = CFX_utils.getConfig('CFX')
     sourceFilePath = args.s
@@ -60,7 +59,7 @@ def main(args):
     anmNodeFileList.insert(-1, 'anmNode')
     anmNodeFile = '_'.join(anmNodeFileList)
     jsonNodeFile = '.'.join(anmNodeFile.split('.')[:-1])+'.json'
-    jsonFile = CFX_mayaUtils.exportAnimationNode(tarFolder, rigConfig, anmNodeFile, jsonNodeFile,  'ctrlSet')
+    jsonFile = CFX_mayaUtils.exportAnimationNode(tarFolder, rigConfig, anmNodeFile, jsonNodeFile,  'ctrlSet', sFrame, eFrame)
     
     anmData = CFX_utils.getConfig(jsonFile,tarFolder)
 
@@ -70,11 +69,10 @@ def main(args):
     else:
         print 'CFX AUTOMATION : Finish exporting animation data'
 
-
     #################################
     #Generate Clean Animation file
     print 'CFX AUTOMATION : Generate Clean Init Animation File'
-    cmds.file(new=True)
+    cmds.file(new=True, f=True)
     CFX_mayaUtils.generateCleanAnimation(anmData)
     cmds.file(rename = initAnmFilePath)
     cmds.file(s=True, f=True, typ='mayaAscii')
@@ -84,7 +82,7 @@ def main(args):
 
     #########################
     #extend animation for CFX
-    print "CFX AUTOMATION :Animation Extendsion for CFX"
+    print "CFX AUTOMATION : Animation Extendsion for CFX"
     availableSet = CFX_mayaUtils.getSelectionSetMember(rigConfig, 'ctrlSet')
     
     if not availableSet:
@@ -96,13 +94,13 @@ def main(args):
         eFrame = cmds.playbackOptions(q=True, maxTime=True)
 
     for k in availableSet: 
-        tag = availableSet[k]['tag']
-        print 'CFX AUTOMATION : found control set %s'%tag
+        tag =  availableSet[k]['tag']
+        print 'CFX AUTOMATION : Found control set %s'%tag
         print 'CFX AUTOMATION : Processing...'
         tmpP = rigConfig[tag]['animRigPath']
         tmpJ = rigConfig[tag]['animRigName']
         fType = rigConfig[tag]['animRigType']
-        
+
         #get latest rig file
         filePattern  =tmpJ + '.v*.'+fType
         tarRigFile = sorted(glob.glob(os.path.join(tmpP, filePattern)))[-1]
@@ -112,9 +110,9 @@ def main(args):
         jsonFile = CFX_utils.getConfig(tarJson, tarJsonPath)
         if not jsonFile:
             jsonFile = None
-            print 'CFX AUTOMATION : no valid default val file exist for %s, use attr default'%tarJsonBase          
+            print 'CFX AUTOMATION : No valid default val file exist for %s, use attr default'%tarJsonBase          
         
-        CFX_mayaUtils.extendAnimPrePostRoll(availableSet[k]['member'], jsonFile, sFrame, eFrame, config['project']['preRoll'], config['project']['preRollHold'], config['project']['cfxPreRoll'], config['project']['postRoll'],config['project']['rollToDefault'])
+        CFX_mayaUtils.extendAnimPrePostRoll( availableSet[k]['member'], jsonFile, sFrame, eFrame, config['project']['preRoll'], config['project']['preRollHold'], config['project']['cfxPreRollOffset'], config['project']['cfxPreRoll'], config['project']['postRoll'],config['project']['rollToDefault'])
         extendedStartFrame = sFrame - config['project']['preRoll'] - config['project']['preRollHold'] - config['project']['cfxPreRoll'] - config['project']['rollToDefault']
         extendedEndFrame = eFrame + config['project']['postRoll'] 
     cmds.playbackOptions(ast=extendedStartFrame, aet=extendedEndFrame, minTime=extendedStartFrame, maxTime=extendedEndFrame)
@@ -122,15 +120,15 @@ def main(args):
     currentFilePath = cmds.file(q=True,sn=True)
     extendedFileFolder = os.path.dirname(currentFilePath)
     extendedFileName = os.path.basename(currentFilePath)
-    print 'TMP : %s'%extendedFileName
+    #print 'TMP : %s'%extendedFileName
     extendedFile= extendedFileName.split('_')
     extendedFile.insert(-1, 'extened')
     extendedFileName = '_'.join(extendedFile)
-    print 'TMP : %s'%extendedFileName
+    #print 'TMP : %s'%extendedFileName
     extendedFilePath = os.path.join(extendedFileFolder, extendedFileName)
     cmds.file(rename = extendedFilePath)
     cmds.file(s=True, f=True, typ='mayaAscii')
-    print 'CFX AUTOMATION : save file %s'%extendedFilePath
+    print 'CFX AUTOMATION : Save file %s'%extendedFilePath
     ####################
     # publish ma file
 
@@ -151,5 +149,5 @@ if __name__ == '__main__':
     parser.add_argument('-ef', help='End Frame')
     parser.add_argument('-ex', help='Extra Argument String')
     args = parser.parse_args()
-    print args
+    #print args
     main(args)

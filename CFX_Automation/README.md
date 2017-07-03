@@ -25,11 +25,13 @@
     - Keep rig file as reference, do not import refernece
     - Don't change reference file name
     - Keep the same file structure between animation file and reference file
-    - Do not use animation layers for delivery files
-    - Animation Files should contains only keyframe, if use any other tools, special inhouse tools, or extra constraints, keys shoule be baked back to provided rig controllers when delivery.
+    - Animation Files should contains only keyframe, if use any other tools, special inhouse tools, or extra constraints, keys shoule be baked onto provided rig controllers when delivery.
+    - Don't add attribute
+    - Don't change attribute status(lock/unlock/hide/unhide) on provided rig file
+    - Don't mute channel.
     - Do not rename any node in provided reference file
     - Clean unused node before delivery files
-    - Deliver only animation files in one folder, no sub-folder needed, exclude reference files. Make sure delivery file name compile to naming convention.
+    - Deliver only animation files in one folder, no sub-folder needed. Make sure delivery file name compile to naming convention.
 
 ## Incoming Animation Playblast for Review
 + ### Naming

@@ -43,7 +43,6 @@ import os
 a = ['D:\\', 'testTGB', 'a']
 print os.path.join(*a)
 '''
-a = 'test_das_v04.ma'
-h = a.split('_')
-h.insert(-1, '3')
-print '.'.join(a.split('.')[:-1]) + '.json'
+a = 'aniTiger_v04.ma'
+a.split('_').insert(-1, 'extended')
+print a
