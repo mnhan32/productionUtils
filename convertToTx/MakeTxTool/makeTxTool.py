@@ -508,16 +508,11 @@ class MainWindow(QMainWindow, maketxUI.Ui_MainWindow):
             desList = []
             for x in arg[1]:
                 baseNameExtract = os.path.basename(x).split('.')[0:-1]
-                baseName = ''
-                if len(baseNameExtract)>1:
-                    for i in baseNameExtract:
-                        baseName += i
-                        #baseName +='.'
-                elif len(baseNameExtract)==1:
-                    baseName = baseNameExtract[0]
-                else:
+                baseName = '.'.join(baseNameExtract)
+                '''
+                if len(baseNameExtract)==0:                    
                     return False
-                    
+                '''    
                 #print 'create ' , baseName
                 if self.gB_saveTo.isChecked():
                     if self.tarDir != False and self.tarDir.strip() != '':
