@@ -4,12 +4,28 @@ import os,sys,getpass,json
 import glob,platform,datetime,urllib,pprint
 from  itertools import *
 
-server = 
-u = 
-p = 
+server = 'https://wefxstudio.shotgunstudio.com'
+u = "mnhan"   
+p = "*1a2b3c4d5F"
 sg = Shotgun(server,login=u,password=p)
 
+fields = ['sg_status_list']
+filters=[['project', 'is', {'type':'Project', 'id':199}]]
+print(sg.find_one('Version', filters=filters, fields = fields))
 
+
+'''
+filterArg = [
+    ['project', 'is', {'type':'Project', 'id':199}],
+    ['id', 'is', 4843]
+]
+fieldArg = [
+    'project',
+    'sg_sequence',
+    'code'
+]
+print(sg.find('Shot', filters=filterArg, fields=fieldArg))
+'''
 '''
 
 filterArg = [
@@ -31,6 +47,7 @@ filterArg = [
 meetingData= sg.find('Task',filters=filterArg, fields=['project','sg_status_list','entity','task_assignees'],oreder=[{'field_name':'user', 'direction':'asc'}])
 '''
 
+'''
 filterArg = [
     ['date','in_calendar_week',-1]
 ]
@@ -90,3 +107,4 @@ sg.close()
 #bookingData= sg.find('Booking',filters=filterArg, fields=['project','start_date','end_date','vacation','sg_status_list'])
 #for i in bookingData:
 #    print i
+'''

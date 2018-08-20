@@ -1,0 +1,3 @@
+T:/Han/productionUtils/mayaAvoidIntersector/mayaPlugInBase/build/CMakeFiles/ALL_BUILD.dir
+T:/Han/productionUtils/mayaAvoidIntersector/mayaPlugInBase/build/CMakeFiles/ZERO_CHECK.dir
+T:/Han/productionUtils/mayaAvoidIntersector/mayaPlugInBase/build/src/CMakeFiles/AvoidIntersector.dir

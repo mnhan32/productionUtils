@@ -1,2 +1,3 @@
 REM
-C:\Python26\pythonw.exe C:\MakeTxTool\makeTxTool.py
+C:\Python27\pythonw.exe T:\Han\productionUtils\convertToTx\MakeTxTool\makeTxTool.py
+PAUSE

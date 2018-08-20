@@ -1,0 +1,623 @@
+The system is: Windows - 6.1.7601 - AMD64
+Compiling the C compiler identification source file "CMakeCCompilerId.c" succeeded.
+Compiler:  
+Build flags: 
+Id flags:  
+
+The output was:
+0
+Microsoft (R) Build Engine for .NET Framework 15.4.8.50001 ��
+Copyright (C) Microsoft Corporation. �ۧ@�v�Ҧ��A�ëO�d�@���v�Q�C
+
+�w�g�}�l�ظm�� 2017/11/13 �U�� 02:21:23�C
+�`�I 1 (�w�]�ؼ�) �W���M�� "T:\Han\productionUtils\mayaPlugInBase\build\CMakeFiles\3.9.6\CompilerIdC\CompilerIdC.vcxproj"�C
+PrepareForBuild:
+  ���b�إߥؿ� "Debug\"�C
+  ���b�إߥؿ� "Debug\CompilerIdC.tlog\"�C
+InitializeBuildStatus:
+  �ѩ���w�F "AlwaysCreate"�A�]�����b�إ� "Debug\CompilerIdC.tlog\unsuccessfulbuild"�C
+ClCompile:
+  C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Tools\MSVC\14.11.25503\bin\HostX86\x64\CL.exe /c /nologo /W0 /WX- /diagnostics:classic /Od /D _MBCS /Gm- /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"Debug\\" /Fd"Debug\vc141.pdb" /Gd /TC /errorReport:queue CMakeCCompilerId.c
+  CMakeCCompilerId.c
+Link:
+  C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Tools\MSVC\14.11.25503\bin\HostX86\x64\link.exe /ERRORREPORT:QUEUE /OUT:".\CompilerIdC.exe" /INCREMENTAL:NO /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /PDB:".\CompilerIdC.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:".\CompilerIdC.lib" /MACHINE:X64 Debug\CMakeCCompilerId.obj
+  CompilerIdC.vcxproj -> T:\Han\productionUtils\mayaPlugInBase\build\CMakeFiles\3.9.6\CompilerIdC\.\CompilerIdC.exe
+PostBuildEvent:
+  for %%i in (cl.exe) do @echo CMAKE_C_COMPILER=%%~$PATH:i
+  :VCEnd
+  CMAKE_C_COMPILER=C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Tools\MSVC\14.11.25503\bin\Hostx86\x64\cl.exe
+FinalizeBuildStatus:
+  ���b�R���ɮ� "Debug\CompilerIdC.tlog\unsuccessfulbuild"�C
+  ���b�ܧ�ɶ��W�O "Debug\CompilerIdC.tlog\CompilerIdC.lastbuildstate"�C
+�M�� "T:\Han\productionUtils\mayaPlugInBase\build\CMakeFiles\3.9.6\CompilerIdC\CompilerIdC.vcxproj" (�w�]�ؼ�) �ظm�����C
+
+�ظm���\�C
+    0 ��ĵ�i
+    0 �ӿ��~
+
+�g�L�ɶ� 00:00:01.12
+
+
+Compilation of the C compiler identification source "CMakeCCompilerId.c" produced "CompilerIdC.exe"
+
+Compilation of the C compiler identification source "CMakeCCompilerId.c" produced "CompilerIdC.vcxproj"
+
+The C compiler identification is MSVC, found in "T:/Han/productionUtils/mayaPlugInBase/build/CMakeFiles/3.9.6/CompilerIdC/CompilerIdC.exe"
+
+Compiling the CXX compiler identification source file "CMakeCXXCompilerId.cpp" succeeded.
+Compiler:  
+Build flags: 
+Id flags:  
+
+The output was:
+0
+Microsoft (R) Build Engine for .NET Framework 15.4.8.50001 ��
+Copyright (C) Microsoft Corporation. �ۧ@�v�Ҧ��A�ëO�d�@���v�Q�C
+
+�w�g�}�l�ظm�� 2017/11/13 �U�� 02:21:24�C
+�`�I 1 (�w�]�ؼ�) �W���M�� "T:\Han\productionUtils\mayaPlugInBase\build\CMakeFiles\3.9.6\CompilerIdCXX\CompilerIdCXX.vcxproj"�C
+PrepareForBuild:
+  ���b�إߥؿ� "Debug\"�C
+  ���b�إߥؿ� "Debug\CompilerIdCXX.tlog\"�C
+InitializeBuildStatus:
+  �ѩ���w�F "AlwaysCreate"�A�]�����b�إ� "Debug\CompilerIdCXX.tlog\unsuccessfulbuild"�C
+ClCompile:
+  C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Tools\MSVC\14.11.25503\bin\HostX86\x64\CL.exe /c /nologo /W0 /WX- /diagnostics:classic /Od /D _MBCS /Gm- /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"Debug\\" /Fd"Debug\vc141.pdb" /Gd /TP /errorReport:queue CMakeCXXCompilerId.cpp
+  CMakeCXXCompilerId.cpp
+Link:
+  C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Tools\MSVC\14.11.25503\bin\HostX86\x64\link.exe /ERRORREPORT:QUEUE /OUT:".\CompilerIdCXX.exe" /INCREMENTAL:NO /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /PDB:".\CompilerIdCXX.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:".\CompilerIdCXX.lib" /MACHINE:X64 Debug\CMakeCXXCompilerId.obj
+  CompilerIdCXX.vcxproj -> T:\Han\productionUtils\mayaPlugInBase\build\CMakeFiles\3.9.6\CompilerIdCXX\.\CompilerIdCXX.exe
+PostBuildEvent:
+  for %%i in (cl.exe) do @echo CMAKE_CXX_COMPILER=%%~$PATH:i
+  :VCEnd
+  CMAKE_CXX_COMPILER=C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Tools\MSVC\14.11.25503\bin\Hostx86\x64\cl.exe
+FinalizeBuildStatus:
+  ���b�R���ɮ� "Debug\CompilerIdCXX.tlog\unsuccessfulbuild"�C
+  ���b�ܧ�ɶ��W�O "Debug\CompilerIdCXX.tlog\CompilerIdCXX.lastbuildstate"�C
+�M�� "T:\Han\productionUtils\mayaPlugInBase\build\CMakeFiles\3.9.6\CompilerIdCXX\CompilerIdCXX.vcxproj" (�w�]�ؼ�) �ظm�����C
+
+�ظm���\�C
+    0 ��ĵ�i
+    0 �ӿ��~
+
+�g�L�ɶ� 00:00:01.13
+
+
+Compilation of the CXX compiler identification source "CMakeCXXCompilerId.cpp" produced "CompilerIdCXX.exe"
+
+Compilation of the CXX compiler identification source "CMakeCXXCompilerId.cpp" produced "CompilerIdCXX.vcxproj"
+
+The CXX compiler identification is MSVC, found in "T:/Han/productionUtils/mayaPlugInBase/build/CMakeFiles/3.9.6/CompilerIdCXX/CompilerIdCXX.exe"
+
+Determining if the C compiler works passed with the following output:
+Change Dir: T:/Han/productionUtils/mayaPlugInBase/build/CMakeFiles/CMakeTmp
+
+Run Build Command:"C:\Program Files (x86)\Microsoft Visual Studio\2017\Community/MSBuild/15.0/Bin/MSBuild.exe" "cmTC_cbbf0.vcxproj" "/p:Configuration=Debug" "/p:VisualStudioVersion=15.0"
+Microsoft (R) Build Engine for .NET Framework 15.4.8.50001 版
+Copyright (C) Microsoft Corporation. 著作權所有，並保留一切權利。
+
+已經開始建置於 2017/11/13 下午 02:21:26。
+節點 1 (預設目標) 上的專案 "T:\Han\productionUtils\mayaPlugInBase\build\CMakeFiles\CMakeTmp\cmTC_cbbf0.vcxproj"。
+PrepareForBuild:
+  正在建立目錄 "cmTC_cbbf0.dir\Debug\"。
+  正在建立目錄 "T:\Han\productionUtils\mayaPlugInBase\build\CMakeFiles\CMakeTmp\Debug\"。
+  正在建立目錄 "cmTC_cbbf0.dir\Debug\cmTC_cbbf0.tlog\"。
+InitializeBuildStatus:
+  由於指定了 "AlwaysCreate"，因此正在建立 "cmTC_cbbf0.dir\Debug\cmTC_cbbf0.tlog\unsuccessfulbuild"。
+ClCompile:
+  C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Tools\MSVC\14.11.25503\bin\HostX86\x64\CL.exe /c /Zi /W3 /WX- /diagnostics:classic /Od /Ob0 /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\"Debug\"" /D _MBCS /Gm- /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"cmTC_cbbf0.dir\Debug\\" /Fd"cmTC_cbbf0.dir\Debug\vc141.pdb" /Gd /TC /errorReport:queue T:\Han\productionUtils\mayaPlugInBase\build\CMakeFiles\CMakeTmp\testCCompiler.c
+  Microsoft (R) C/C++ Optimizing Compiler Version 19.11.25547 for x64
+  Copyright (C) Microsoft Corporation.  著作權所有，並保留一切權利。
+  
+  cl /c /Zi /W3 /WX- /diagnostics:classic /Od /Ob0 /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\"Debug\"" /D _MBCS /Gm- /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"cmTC_cbbf0.dir\Debug\\" /Fd"cmTC_cbbf0.dir\Debug\vc141.pdb" /Gd /TC /errorReport:queue T:\Han\productionUtils\mayaPlugInBase\build\CMakeFiles\CMakeTmp\testCCompiler.c
+  testCCompiler.c
+  
+Link:
+  C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Tools\MSVC\14.11.25503\bin\HostX86\x64\link.exe /ERRORREPORT:QUEUE /OUT:"T:\Han\productionUtils\mayaPlugInBase\build\CMakeFiles\CMakeTmp\Debug\cmTC_cbbf0.exe" /INCREMENTAL /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"T:/Han/productionUtils/mayaPlugInBase/build/CMakeFiles/CMakeTmp/Debug/cmTC_cbbf0.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"T:/Han/productionUtils/mayaPlugInBase/build/CMakeFiles/CMakeTmp/Debug/cmTC_cbbf0.lib" /MACHINE:X64  /machine:x64 cmTC_cbbf0.dir\Debug\testCCompiler.obj
+  cmTC_cbbf0.vcxproj -> T:\Han\productionUtils\mayaPlugInBase\build\CMakeFiles\CMakeTmp\Debug\cmTC_cbbf0.exe
+FinalizeBuildStatus:
+  正在刪除檔案 "cmTC_cbbf0.dir\Debug\cmTC_cbbf0.tlog\unsuccessfulbuild"。
+  正在變更時間戳記 "cmTC_cbbf0.dir\Debug\cmTC_cbbf0.tlog\cmTC_cbbf0.lastbuildstate"。
+專案 "T:\Han\productionUtils\mayaPlugInBase\build\CMakeFiles\CMakeTmp\cmTC_cbbf0.vcxproj" (預設目標) 建置完成。
+
+建置成功。
+    0 個警告
+    0 個錯誤
+
+經過時間 00:00:01.25
+
+
+Detecting C compiler ABI info compiled with the following output:
+Change Dir: T:/Han/productionUtils/mayaPlugInBase/build/CMakeFiles/CMakeTmp
+
+Run Build Command:"C:\Program Files (x86)\Microsoft Visual Studio\2017\Community/MSBuild/15.0/Bin/MSBuild.exe" "cmTC_dc431.vcxproj" "/p:Configuration=Debug" "/p:VisualStudioVersion=15.0"
+Microsoft (R) Build Engine for .NET Framework 15.4.8.50001 版
+Copyright (C) Microsoft Corporation. 著作權所有，並保留一切權利。
+
+已經開始建置於 2017/11/13 下午 02:21:27。
+節點 1 (預設目標) 上的專案 "T:\Han\productionUtils\mayaPlugInBase\build\CMakeFiles\CMakeTmp\cmTC_dc431.vcxproj"。
+PrepareForBuild:
+  正在建立目錄 "cmTC_dc431.dir\Debug\"。
+  正在建立目錄 "T:\Han\productionUtils\mayaPlugInBase\build\CMakeFiles\CMakeTmp\Debug\"。
+  正在建立目錄 "cmTC_dc431.dir\Debug\cmTC_dc431.tlog\"。
+InitializeBuildStatus:
+  由於指定了 "AlwaysCreate"，因此正在建立 "cmTC_dc431.dir\Debug\cmTC_dc431.tlog\unsuccessfulbuild"。
+ClCompile:
+  C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Tools\MSVC\14.11.25503\bin\HostX86\x64\CL.exe /c /Zi /W3 /WX- /diagnostics:classic /Od /Ob0 /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\"Debug\"" /D _MBCS /Gm- /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"cmTC_dc431.dir\Debug\\" /Fd"cmTC_dc431.dir\Debug\vc141.pdb" /Gd /TC /errorReport:queue "C:\Program Files\CMake\share\cmake-3.9\Modules\CMakeCCompilerABI.c"
+  Microsoft (R) C/C++ Optimizing Compiler Version 19.11.25547 for x64
+  Copyright (C) Microsoft Corporation.  著作權所有，並保留一切權利。
+  
+  cl /c /Zi /W3 /WX- /diagnostics:classic /Od /Ob0 /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\"Debug\"" /D _MBCS /Gm- /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"cmTC_dc431.dir\Debug\\" /Fd"cmTC_dc431.dir\Debug\vc141.pdb" /Gd /TC /errorReport:queue "C:\Program Files\CMake\share\cmake-3.9\Modules\CMakeCCompilerABI.c"
+  CMakeCCompilerABI.c
+  
+Link:
+  C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Tools\MSVC\14.11.25503\bin\HostX86\x64\link.exe /ERRORREPORT:QUEUE /OUT:"T:\Han\productionUtils\mayaPlugInBase\build\CMakeFiles\CMakeTmp\Debug\cmTC_dc431.exe" /INCREMENTAL /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"T:/Han/productionUtils/mayaPlugInBase/build/CMakeFiles/CMakeTmp/Debug/cmTC_dc431.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"T:/Han/productionUtils/mayaPlugInBase/build/CMakeFiles/CMakeTmp/Debug/cmTC_dc431.lib" /MACHINE:X64  /machine:x64 cmTC_dc431.dir\Debug\CMakeCCompilerABI.obj
+  cmTC_dc431.vcxproj -> T:\Han\productionUtils\mayaPlugInBase\build\CMakeFiles\CMakeTmp\Debug\cmTC_dc431.exe
+FinalizeBuildStatus:
+  正在刪除檔案 "cmTC_dc431.dir\Debug\cmTC_dc431.tlog\unsuccessfulbuild"。
+  正在變更時間戳記 "cmTC_dc431.dir\Debug\cmTC_dc431.tlog\cmTC_dc431.lastbuildstate"。
+專案 "T:\Han\productionUtils\mayaPlugInBase\build\CMakeFiles\CMakeTmp\cmTC_dc431.vcxproj" (預設目標) 建置完成。
+
+建置成功。
+    0 個警告
+    0 個錯誤
+
+經過時間 00:00:01.31
+
+
+Determining if the CXX compiler works passed with the following output:
+Change Dir: T:/Han/productionUtils/mayaPlugInBase/build/CMakeFiles/CMakeTmp
+
+Run Build Command:"C:\Program Files (x86)\Microsoft Visual Studio\2017\Community/MSBuild/15.0/Bin/MSBuild.exe" "cmTC_373df.vcxproj" "/p:Configuration=Debug" "/p:VisualStudioVersion=15.0"
+Microsoft (R) Build Engine for .NET Framework 15.4.8.50001 版
+Copyright (C) Microsoft Corporation. 著作權所有，並保留一切權利。
+
+已經開始建置於 2017/11/13 下午 02:21:29。
+節點 1 (預設目標) 上的專案 "T:\Han\productionUtils\mayaPlugInBase\build\CMakeFiles\CMakeTmp\cmTC_373df.vcxproj"。
+PrepareForBuild:
+  正在建立目錄 "cmTC_373df.dir\Debug\"。
+  正在建立目錄 "T:\Han\productionUtils\mayaPlugInBase\build\CMakeFiles\CMakeTmp\Debug\"。
+  正在建立目錄 "cmTC_373df.dir\Debug\cmTC_373df.tlog\"。
+InitializeBuildStatus:
+  由於指定了 "AlwaysCreate"，因此正在建立 "cmTC_373df.dir\Debug\cmTC_373df.tlog\unsuccessfulbuild"。
+ClCompile:
+  C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Tools\MSVC\14.11.25503\bin\HostX86\x64\CL.exe /c /Zi /W3 /WX- /diagnostics:classic /Od /Ob0 /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\"Debug\"" /D _MBCS /Gm- /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /GR /Fo"cmTC_373df.dir\Debug\\" /Fd"cmTC_373df.dir\Debug\vc141.pdb" /Gd /TP /errorReport:queue T:\Han\productionUtils\mayaPlugInBase\build\CMakeFiles\CMakeTmp\testCXXCompiler.cxx
+  Microsoft (R) C/C++ Optimizing Compiler Version 19.11.25547 for x64
+  Copyright (C) Microsoft Corporation.  著作權所有，並保留一切權利。
+  
+  cl /c /Zi /W3 /WX- /diagnostics:classic /Od /Ob0 /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\"Debug\"" /D _MBCS /Gm- /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /GR /Fo"cmTC_373df.dir\Debug\\" /Fd"cmTC_373df.dir\Debug\vc141.pdb" /Gd /TP /errorReport:queue T:\Han\productionUtils\mayaPlugInBase\build\CMakeFiles\CMakeTmp\testCXXCompiler.cxx
+  testCXXCompiler.cxx
+  
+Link:
+  C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Tools\MSVC\14.11.25503\bin\HostX86\x64\link.exe /ERRORREPORT:QUEUE /OUT:"T:\Han\productionUtils\mayaPlugInBase\build\CMakeFiles\CMakeTmp\Debug\cmTC_373df.exe" /INCREMENTAL /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"T:/Han/productionUtils/mayaPlugInBase/build/CMakeFiles/CMakeTmp/Debug/cmTC_373df.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"T:/Han/productionUtils/mayaPlugInBase/build/CMakeFiles/CMakeTmp/Debug/cmTC_373df.lib" /MACHINE:X64  /machine:x64 cmTC_373df.dir\Debug\testCXXCompiler.obj
+  cmTC_373df.vcxproj -> T:\Han\productionUtils\mayaPlugInBase\build\CMakeFiles\CMakeTmp\Debug\cmTC_373df.exe
+FinalizeBuildStatus:
+  正在刪除檔案 "cmTC_373df.dir\Debug\cmTC_373df.tlog\unsuccessfulbuild"。
+  正在變更時間戳記 "cmTC_373df.dir\Debug\cmTC_373df.tlog\cmTC_373df.lastbuildstate"。
+專案 "T:\Han\productionUtils\mayaPlugInBase\build\CMakeFiles\CMakeTmp\cmTC_373df.vcxproj" (預設目標) 建置完成。
+
+建置成功。
+    0 個警告
+    0 個錯誤
+
+經過時間 00:00:01.32
+
+
+Detecting CXX compiler ABI info compiled with the following output:
+Change Dir: T:/Han/productionUtils/mayaPlugInBase/build/CMakeFiles/CMakeTmp
+
+Run Build Command:"C:\Program Files (x86)\Microsoft Visual Studio\2017\Community/MSBuild/15.0/Bin/MSBuild.exe" "cmTC_9a829.vcxproj" "/p:Configuration=Debug" "/p:VisualStudioVersion=15.0"
+Microsoft (R) Build Engine for .NET Framework 15.4.8.50001 版
+Copyright (C) Microsoft Corporation. 著作權所有，並保留一切權利。
+
+已經開始建置於 2017/11/13 下午 02:21:31。
+節點 1 (預設目標) 上的專案 "T:\Han\productionUtils\mayaPlugInBase\build\CMakeFiles\CMakeTmp\cmTC_9a829.vcxproj"。
+PrepareForBuild:
+  正在建立目錄 "cmTC_9a829.dir\Debug\"。
+  正在建立目錄 "T:\Han\productionUtils\mayaPlugInBase\build\CMakeFiles\CMakeTmp\Debug\"。
+  正在建立目錄 "cmTC_9a829.dir\Debug\cmTC_9a829.tlog\"。
+InitializeBuildStatus:
+  由於指定了 "AlwaysCreate"，因此正在建立 "cmTC_9a829.dir\Debug\cmTC_9a829.tlog\unsuccessfulbuild"。
+ClCompile:
+  C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Tools\MSVC\14.11.25503\bin\HostX86\x64\CL.exe /c /Zi /W3 /WX- /diagnostics:classic /Od /Ob0 /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\"Debug\"" /D _MBCS /Gm- /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /GR /Fo"cmTC_9a829.dir\Debug\\" /Fd"cmTC_9a829.dir\Debug\vc141.pdb" /Gd /TP /errorReport:queue "C:\Program Files\CMake\share\cmake-3.9\Modules\CMakeCXXCompilerABI.cpp"
+  Microsoft (R) C/C++ Optimizing Compiler Version 19.11.25547 for x64
+  Copyright (C) Microsoft Corporation.  著作權所有，並保留一切權利。
+  
+  cl /c /Zi /W3 /WX- /diagnostics:classic /Od /Ob0 /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\"Debug\"" /D _MBCS /Gm- /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /GR /Fo"cmTC_9a829.dir\Debug\\" /Fd"cmTC_9a829.dir\Debug\vc141.pdb" /Gd /TP /errorReport:queue "C:\Program Files\CMake\share\cmake-3.9\Modules\CMakeCXXCompilerABI.cpp"
+  CMakeCXXCompilerABI.cpp
+  
+Link:
+  C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Tools\MSVC\14.11.25503\bin\HostX86\x64\link.exe /ERRORREPORT:QUEUE /OUT:"T:\Han\productionUtils\mayaPlugInBase\build\CMakeFiles\CMakeTmp\Debug\cmTC_9a829.exe" /INCREMENTAL /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"T:/Han/productionUtils/mayaPlugInBase/build/CMakeFiles/CMakeTmp/Debug/cmTC_9a829.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"T:/Han/productionUtils/mayaPlugInBase/build/CMakeFiles/CMakeTmp/Debug/cmTC_9a829.lib" /MACHINE:X64  /machine:x64 cmTC_9a829.dir\Debug\CMakeCXXCompilerABI.obj
+  cmTC_9a829.vcxproj -> T:\Han\productionUtils\mayaPlugInBase\build\CMakeFiles\CMakeTmp\Debug\cmTC_9a829.exe
+FinalizeBuildStatus:
+  正在刪除檔案 "cmTC_9a829.dir\Debug\cmTC_9a829.tlog\unsuccessfulbuild"。
+  正在變更時間戳記 "cmTC_9a829.dir\Debug\cmTC_9a829.tlog\cmTC_9a829.lastbuildstate"。
+專案 "T:\Han\productionUtils\mayaPlugInBase\build\CMakeFiles\CMakeTmp\cmTC_9a829.vcxproj" (預設目標) 建置完成。
+
+建置成功。
+    0 個警告
+    0 個錯誤
+
+經過時間 00:00:01.16
+
+
+
+
+Detecting CXX [] compiler features compiled with the following output:
+Change Dir: T:/Han/productionUtils/mayaPlugInBase/build/CMakeFiles/CMakeTmp
+
+Run Build Command:"C:\Program Files (x86)\Microsoft Visual Studio\2017\Community/MSBuild/15.0/Bin/MSBuild.exe" "cmTC_71ae7.vcxproj" "/p:Configuration=Debug" "/p:VisualStudioVersion=15.0"
+Microsoft (R) Build Engine for .NET Framework 15.4.8.50001 版
+Copyright (C) Microsoft Corporation. 著作權所有，並保留一切權利。
+
+已經開始建置於 2017/11/13 下午 02:21:32。
+節點 1 (預設目標) 上的專案 "T:\Han\productionUtils\mayaPlugInBase\build\CMakeFiles\CMakeTmp\cmTC_71ae7.vcxproj"。
+PrepareForBuild:
+  正在建立目錄 "cmTC_71ae7.dir\Debug\"。
+  正在建立目錄 "T:\Han\productionUtils\mayaPlugInBase\build\CMakeFiles\CMakeTmp\Debug\"。
+  正在建立目錄 "cmTC_71ae7.dir\Debug\cmTC_71ae7.tlog\"。
+InitializeBuildStatus:
+  由於指定了 "AlwaysCreate"，因此正在建立 "cmTC_71ae7.dir\Debug\cmTC_71ae7.tlog\unsuccessfulbuild"。
+ClCompile:
+  C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Tools\MSVC\14.11.25503\bin\HostX86\x64\CL.exe /c /Zi /W3 /WX- /diagnostics:classic /Od /Ob0 /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\"Debug\"" /D _MBCS /Gm- /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /GR /Fo"cmTC_71ae7.dir\Debug\\" /Fd"cmTC_71ae7.dir\Debug\vc141.pdb" /Gd /TP /errorReport:queue T:\Han\productionUtils\mayaPlugInBase\build\CMakeFiles\feature_tests.cxx
+  Microsoft (R) C/C++ Optimizing Compiler Version 19.11.25547 for x64
+  Copyright (C) Microsoft Corporation.  著作權所有，並保留一切權利。
+  
+  cl /c /Zi /W3 /WX- /diagnostics:classic /Od /Ob0 /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\"Debug\"" /D _MBCS /Gm- /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /GR /Fo"cmTC_71ae7.dir\Debug\\" /Fd"cmTC_71ae7.dir\Debug\vc141.pdb" /Gd /TP /errorReport:queue T:\Han\productionUtils\mayaPlugInBase\build\CMakeFiles\feature_tests.cxx
+  feature_tests.cxx
+  
+Link:
+  C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Tools\MSVC\14.11.25503\bin\HostX86\x64\link.exe /ERRORREPORT:QUEUE /OUT:"T:\Han\productionUtils\mayaPlugInBase\build\CMakeFiles\CMakeTmp\Debug\cmTC_71ae7.exe" /INCREMENTAL /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"T:/Han/productionUtils/mayaPlugInBase/build/CMakeFiles/CMakeTmp/Debug/cmTC_71ae7.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"T:/Han/productionUtils/mayaPlugInBase/build/CMakeFiles/CMakeTmp/Debug/cmTC_71ae7.lib" /MACHINE:X64  /machine:x64 cmTC_71ae7.dir\Debug\feature_tests.obj
+  cmTC_71ae7.vcxproj -> T:\Han\productionUtils\mayaPlugInBase\build\CMakeFiles\CMakeTmp\Debug\cmTC_71ae7.exe
+FinalizeBuildStatus:
+  正在刪除檔案 "cmTC_71ae7.dir\Debug\cmTC_71ae7.tlog\unsuccessfulbuild"。
+  正在變更時間戳記 "cmTC_71ae7.dir\Debug\cmTC_71ae7.tlog\cmTC_71ae7.lastbuildstate"。
+專案 "T:\Han\productionUtils\mayaPlugInBase\build\CMakeFiles\CMakeTmp\cmTC_71ae7.vcxproj" (預設目標) 建置完成。
+
+建置成功。
+    0 個警告
+    0 個錯誤
+
+經過時間 00:00:01.24
+
+
+    Feature record: CXX_FEATURE:1cxx_aggregate_default_initializers
+    Feature record: CXX_FEATURE:1cxx_alias_templates
+    Feature record: CXX_FEATURE:1cxx_alignas
+    Feature record: CXX_FEATURE:1cxx_alignof
+    Feature record: CXX_FEATURE:1cxx_attributes
+    Feature record: CXX_FEATURE:1cxx_attribute_deprecated
+    Feature record: CXX_FEATURE:1cxx_auto_type
+    Feature record: CXX_FEATURE:1cxx_binary_literals
+    Feature record: CXX_FEATURE:1cxx_constexpr
+    Feature record: CXX_FEATURE:1cxx_contextual_conversions
+    Feature record: CXX_FEATURE:1cxx_decltype
+    Feature record: CXX_FEATURE:1cxx_decltype_auto
+    Feature record: CXX_FEATURE:1cxx_default_function_template_args
+    Feature record: CXX_FEATURE:1cxx_defaulted_functions
+    Feature record: CXX_FEATURE:1cxx_defaulted_move_initializers
+    Feature record: CXX_FEATURE:1cxx_delegating_constructors
+    Feature record: CXX_FEATURE:1cxx_deleted_functions
+    Feature record: CXX_FEATURE:1cxx_digit_separators
+    Feature record: CXX_FEATURE:1cxx_enum_forward_declarations
+    Feature record: CXX_FEATURE:1cxx_explicit_conversions
+    Feature record: CXX_FEATURE:1cxx_extended_friend_declarations
+    Feature record: CXX_FEATURE:1cxx_extern_templates
+    Feature record: CXX_FEATURE:1cxx_final
+    Feature record: CXX_FEATURE:1cxx_func_identifier
+    Feature record: CXX_FEATURE:1cxx_generalized_initializers
+    Feature record: CXX_FEATURE:1cxx_generic_lambdas
+    Feature record: CXX_FEATURE:1cxx_inheriting_constructors
+    Feature record: CXX_FEATURE:1cxx_inline_namespaces
+    Feature record: CXX_FEATURE:1cxx_lambdas
+    Feature record: CXX_FEATURE:1cxx_lambda_init_captures
+    Feature record: CXX_FEATURE:1cxx_local_type_template_args
+    Feature record: CXX_FEATURE:1cxx_long_long_type
+    Feature record: CXX_FEATURE:1cxx_noexcept
+    Feature record: CXX_FEATURE:1cxx_nonstatic_member_init
+    Feature record: CXX_FEATURE:1cxx_nullptr
+    Feature record: CXX_FEATURE:1cxx_override
+    Feature record: CXX_FEATURE:1cxx_range_for
+    Feature record: CXX_FEATURE:1cxx_raw_string_literals
+    Feature record: CXX_FEATURE:1cxx_reference_qualified_functions
+    Feature record: CXX_FEATURE:1cxx_return_type_deduction
+    Feature record: CXX_FEATURE:1cxx_right_angle_brackets
+    Feature record: CXX_FEATURE:1cxx_rvalue_references
+    Feature record: CXX_FEATURE:1cxx_sizeof_member
+    Feature record: CXX_FEATURE:1cxx_static_assert
+    Feature record: CXX_FEATURE:1cxx_strong_enums
+    Feature record: CXX_FEATURE:1cxx_template_template_parameters
+    Feature record: CXX_FEATURE:1cxx_thread_local
+    Feature record: CXX_FEATURE:1cxx_trailing_return_types
+    Feature record: CXX_FEATURE:1cxx_unicode_literals
+    Feature record: CXX_FEATURE:1cxx_uniform_initialization
+    Feature record: CXX_FEATURE:1cxx_unrestricted_unions
+    Feature record: CXX_FEATURE:1cxx_user_literals
+    Feature record: CXX_FEATURE:1cxx_variable_templates
+    Feature record: CXX_FEATURE:1cxx_variadic_macros
+    Feature record: CXX_FEATURE:1cxx_variadic_templates
+
+
+Detecting CXX [] compiler features compiled with the following output:
+Change Dir: T:/Han/productionUtils/mayaPlugInBase/build/CMakeFiles/CMakeTmp
+
+Run Build Command:"C:\Program Files (x86)\Microsoft Visual Studio\2017\Community/MSBuild/15.0/Bin/MSBuild.exe" "cmTC_bf606.vcxproj" "/p:Configuration=Debug" "/p:VisualStudioVersion=15.0"
+Microsoft (R) Build Engine for .NET Framework 15.4.8.50001 版
+Copyright (C) Microsoft Corporation. 著作權所有，並保留一切權利。
+
+已經開始建置於 2017/11/13 下午 02:21:34。
+節點 1 (預設目標) 上的專案 "T:\Han\productionUtils\mayaPlugInBase\build\CMakeFiles\CMakeTmp\cmTC_bf606.vcxproj"。
+PrepareForBuild:
+  正在建立目錄 "cmTC_bf606.dir\Debug\"。
+  正在建立目錄 "T:\Han\productionUtils\mayaPlugInBase\build\CMakeFiles\CMakeTmp\Debug\"。
+  正在建立目錄 "cmTC_bf606.dir\Debug\cmTC_bf606.tlog\"。
+InitializeBuildStatus:
+  由於指定了 "AlwaysCreate"，因此正在建立 "cmTC_bf606.dir\Debug\cmTC_bf606.tlog\unsuccessfulbuild"。
+ClCompile:
+  C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Tools\MSVC\14.11.25503\bin\HostX86\x64\CL.exe /c /Zi /W3 /WX- /diagnostics:classic /Od /Ob0 /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\"Debug\"" /D _MBCS /Gm- /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /GR /Fo"cmTC_bf606.dir\Debug\\" /Fd"cmTC_bf606.dir\Debug\vc141.pdb" /Gd /TP /errorReport:queue T:\Han\productionUtils\mayaPlugInBase\build\CMakeFiles\feature_tests.cxx
+  Microsoft (R) C/C++ Optimizing Compiler Version 19.11.25547 for x64
+  Copyright (C) Microsoft Corporation.  著作權所有，並保留一切權利。
+  
+  cl /c /Zi /W3 /WX- /diagnostics:classic /Od /Ob0 /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\"Debug\"" /D _MBCS /Gm- /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /GR /Fo"cmTC_bf606.dir\Debug\\" /Fd"cmTC_bf606.dir\Debug\vc141.pdb" /Gd /TP /errorReport:queue T:\Han\productionUtils\mayaPlugInBase\build\CMakeFiles\feature_tests.cxx
+  feature_tests.cxx
+  
+Link:
+  C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Tools\MSVC\14.11.25503\bin\HostX86\x64\link.exe /ERRORREPORT:QUEUE /OUT:"T:\Han\productionUtils\mayaPlugInBase\build\CMakeFiles\CMakeTmp\Debug\cmTC_bf606.exe" /INCREMENTAL /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"T:/Han/productionUtils/mayaPlugInBase/build/CMakeFiles/CMakeTmp/Debug/cmTC_bf606.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"T:/Han/productionUtils/mayaPlugInBase/build/CMakeFiles/CMakeTmp/Debug/cmTC_bf606.lib" /MACHINE:X64  /machine:x64 cmTC_bf606.dir\Debug\feature_tests.obj
+  cmTC_bf606.vcxproj -> T:\Han\productionUtils\mayaPlugInBase\build\CMakeFiles\CMakeTmp\Debug\cmTC_bf606.exe
+FinalizeBuildStatus:
+  正在刪除檔案 "cmTC_bf606.dir\Debug\cmTC_bf606.tlog\unsuccessfulbuild"。
+  正在變更時間戳記 "cmTC_bf606.dir\Debug\cmTC_bf606.tlog\cmTC_bf606.lastbuildstate"。
+專案 "T:\Han\productionUtils\mayaPlugInBase\build\CMakeFiles\CMakeTmp\cmTC_bf606.vcxproj" (預設目標) 建置完成。
+
+建置成功。
+    0 個警告
+    0 個錯誤
+
+經過時間 00:00:01.22
+
+
+    Feature record: CXX_FEATURE:1cxx_aggregate_default_initializers
+    Feature record: CXX_FEATURE:1cxx_alias_templates
+    Feature record: CXX_FEATURE:1cxx_alignas
+    Feature record: CXX_FEATURE:1cxx_alignof
+    Feature record: CXX_FEATURE:1cxx_attributes
+    Feature record: CXX_FEATURE:1cxx_attribute_deprecated
+    Feature record: CXX_FEATURE:1cxx_auto_type
+    Feature record: CXX_FEATURE:1cxx_binary_literals
+    Feature record: CXX_FEATURE:1cxx_constexpr
+    Feature record: CXX_FEATURE:1cxx_contextual_conversions
+    Feature record: CXX_FEATURE:1cxx_decltype
+    Feature record: CXX_FEATURE:1cxx_decltype_auto
+    Feature record: CXX_FEATURE:1cxx_default_function_template_args
+    Feature record: CXX_FEATURE:1cxx_defaulted_functions
+    Feature record: CXX_FEATURE:1cxx_defaulted_move_initializers
+    Feature record: CXX_FEATURE:1cxx_delegating_constructors
+    Feature record: CXX_FEATURE:1cxx_deleted_functions
+    Feature record: CXX_FEATURE:1cxx_digit_separators
+    Feature record: CXX_FEATURE:1cxx_enum_forward_declarations
+    Feature record: CXX_FEATURE:1cxx_explicit_conversions
+    Feature record: CXX_FEATURE:1cxx_extended_friend_declarations
+    Feature record: CXX_FEATURE:1cxx_extern_templates
+    Feature record: CXX_FEATURE:1cxx_final
+    Feature record: CXX_FEATURE:1cxx_func_identifier
+    Feature record: CXX_FEATURE:1cxx_generalized_initializers
+    Feature record: CXX_FEATURE:1cxx_generic_lambdas
+    Feature record: CXX_FEATURE:1cxx_inheriting_constructors
+    Feature record: CXX_FEATURE:1cxx_inline_namespaces
+    Feature record: CXX_FEATURE:1cxx_lambdas
+    Feature record: CXX_FEATURE:1cxx_lambda_init_captures
+    Feature record: CXX_FEATURE:1cxx_local_type_template_args
+    Feature record: CXX_FEATURE:1cxx_long_long_type
+    Feature record: CXX_FEATURE:1cxx_noexcept
+    Feature record: CXX_FEATURE:1cxx_nonstatic_member_init
+    Feature record: CXX_FEATURE:1cxx_nullptr
+    Feature record: CXX_FEATURE:1cxx_override
+    Feature record: CXX_FEATURE:1cxx_range_for
+    Feature record: CXX_FEATURE:1cxx_raw_string_literals
+    Feature record: CXX_FEATURE:1cxx_reference_qualified_functions
+    Feature record: CXX_FEATURE:1cxx_return_type_deduction
+    Feature record: CXX_FEATURE:1cxx_right_angle_brackets
+    Feature record: CXX_FEATURE:1cxx_rvalue_references
+    Feature record: CXX_FEATURE:1cxx_sizeof_member
+    Feature record: CXX_FEATURE:1cxx_static_assert
+    Feature record: CXX_FEATURE:1cxx_strong_enums
+    Feature record: CXX_FEATURE:1cxx_template_template_parameters
+    Feature record: CXX_FEATURE:1cxx_thread_local
+    Feature record: CXX_FEATURE:1cxx_trailing_return_types
+    Feature record: CXX_FEATURE:1cxx_unicode_literals
+    Feature record: CXX_FEATURE:1cxx_uniform_initialization
+    Feature record: CXX_FEATURE:1cxx_unrestricted_unions
+    Feature record: CXX_FEATURE:1cxx_user_literals
+    Feature record: CXX_FEATURE:1cxx_variable_templates
+    Feature record: CXX_FEATURE:1cxx_variadic_macros
+    Feature record: CXX_FEATURE:1cxx_variadic_templates
+
+
+Detecting CXX [] compiler features compiled with the following output:
+Change Dir: T:/Han/productionUtils/mayaPlugInBase/build/CMakeFiles/CMakeTmp
+
+Run Build Command:"C:\Program Files (x86)\Microsoft Visual Studio\2017\Community/MSBuild/15.0/Bin/MSBuild.exe" "cmTC_532ad.vcxproj" "/p:Configuration=Debug" "/p:VisualStudioVersion=15.0"
+Microsoft (R) Build Engine for .NET Framework 15.4.8.50001 版
+Copyright (C) Microsoft Corporation. 著作權所有，並保留一切權利。
+
+已經開始建置於 2017/11/13 下午 02:21:36。
+節點 1 (預設目標) 上的專案 "T:\Han\productionUtils\mayaPlugInBase\build\CMakeFiles\CMakeTmp\cmTC_532ad.vcxproj"。
+PrepareForBuild:
+  正在建立目錄 "cmTC_532ad.dir\Debug\"。
+  正在建立目錄 "T:\Han\productionUtils\mayaPlugInBase\build\CMakeFiles\CMakeTmp\Debug\"。
+  正在建立目錄 "cmTC_532ad.dir\Debug\cmTC_532ad.tlog\"。
+InitializeBuildStatus:
+  由於指定了 "AlwaysCreate"，因此正在建立 "cmTC_532ad.dir\Debug\cmTC_532ad.tlog\unsuccessfulbuild"。
+ClCompile:
+  C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Tools\MSVC\14.11.25503\bin\HostX86\x64\CL.exe /c /Zi /W3 /WX- /diagnostics:classic /Od /Ob0 /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\"Debug\"" /D _MBCS /Gm- /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /GR /Fo"cmTC_532ad.dir\Debug\\" /Fd"cmTC_532ad.dir\Debug\vc141.pdb" /Gd /TP /errorReport:queue T:\Han\productionUtils\mayaPlugInBase\build\CMakeFiles\feature_tests.cxx
+  Microsoft (R) C/C++ Optimizing Compiler Version 19.11.25547 for x64
+  Copyright (C) Microsoft Corporation.  著作權所有，並保留一切權利。
+  
+  cl /c /Zi /W3 /WX- /diagnostics:classic /Od /Ob0 /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\"Debug\"" /D _MBCS /Gm- /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /GR /Fo"cmTC_532ad.dir\Debug\\" /Fd"cmTC_532ad.dir\Debug\vc141.pdb" /Gd /TP /errorReport:queue T:\Han\productionUtils\mayaPlugInBase\build\CMakeFiles\feature_tests.cxx
+  feature_tests.cxx
+  
+Link:
+  C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Tools\MSVC\14.11.25503\bin\HostX86\x64\link.exe /ERRORREPORT:QUEUE /OUT:"T:\Han\productionUtils\mayaPlugInBase\build\CMakeFiles\CMakeTmp\Debug\cmTC_532ad.exe" /INCREMENTAL /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"T:/Han/productionUtils/mayaPlugInBase/build/CMakeFiles/CMakeTmp/Debug/cmTC_532ad.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"T:/Han/productionUtils/mayaPlugInBase/build/CMakeFiles/CMakeTmp/Debug/cmTC_532ad.lib" /MACHINE:X64  /machine:x64 cmTC_532ad.dir\Debug\feature_tests.obj
+  cmTC_532ad.vcxproj -> T:\Han\productionUtils\mayaPlugInBase\build\CMakeFiles\CMakeTmp\Debug\cmTC_532ad.exe
+FinalizeBuildStatus:
+  正在刪除檔案 "cmTC_532ad.dir\Debug\cmTC_532ad.tlog\unsuccessfulbuild"。
+  正在變更時間戳記 "cmTC_532ad.dir\Debug\cmTC_532ad.tlog\cmTC_532ad.lastbuildstate"。
+專案 "T:\Han\productionUtils\mayaPlugInBase\build\CMakeFiles\CMakeTmp\cmTC_532ad.vcxproj" (預設目標) 建置完成。
+
+建置成功。
+    0 個警告
+    0 個錯誤
+
+經過時間 00:00:01.24
+
+
+    Feature record: CXX_FEATURE:1cxx_aggregate_default_initializers
+    Feature record: CXX_FEATURE:1cxx_alias_templates
+    Feature record: CXX_FEATURE:1cxx_alignas
+    Feature record: CXX_FEATURE:1cxx_alignof
+    Feature record: CXX_FEATURE:1cxx_attributes
+    Feature record: CXX_FEATURE:1cxx_attribute_deprecated
+    Feature record: CXX_FEATURE:1cxx_auto_type
+    Feature record: CXX_FEATURE:1cxx_binary_literals
+    Feature record: CXX_FEATURE:1cxx_constexpr
+    Feature record: CXX_FEATURE:1cxx_contextual_conversions
+    Feature record: CXX_FEATURE:1cxx_decltype
+    Feature record: CXX_FEATURE:1cxx_decltype_auto
+    Feature record: CXX_FEATURE:1cxx_default_function_template_args
+    Feature record: CXX_FEATURE:1cxx_defaulted_functions
+    Feature record: CXX_FEATURE:1cxx_defaulted_move_initializers
+    Feature record: CXX_FEATURE:1cxx_delegating_constructors
+    Feature record: CXX_FEATURE:1cxx_deleted_functions
+    Feature record: CXX_FEATURE:1cxx_digit_separators
+    Feature record: CXX_FEATURE:1cxx_enum_forward_declarations
+    Feature record: CXX_FEATURE:1cxx_explicit_conversions
+    Feature record: CXX_FEATURE:1cxx_extended_friend_declarations
+    Feature record: CXX_FEATURE:1cxx_extern_templates
+    Feature record: CXX_FEATURE:1cxx_final
+    Feature record: CXX_FEATURE:1cxx_func_identifier
+    Feature record: CXX_FEATURE:1cxx_generalized_initializers
+    Feature record: CXX_FEATURE:1cxx_generic_lambdas
+    Feature record: CXX_FEATURE:1cxx_inheriting_constructors
+    Feature record: CXX_FEATURE:1cxx_inline_namespaces
+    Feature record: CXX_FEATURE:1cxx_lambdas
+    Feature record: CXX_FEATURE:1cxx_lambda_init_captures
+    Feature record: CXX_FEATURE:1cxx_local_type_template_args
+    Feature record: CXX_FEATURE:1cxx_long_long_type
+    Feature record: CXX_FEATURE:1cxx_noexcept
+    Feature record: CXX_FEATURE:1cxx_nonstatic_member_init
+    Feature record: CXX_FEATURE:1cxx_nullptr
+    Feature record: CXX_FEATURE:1cxx_override
+    Feature record: CXX_FEATURE:1cxx_range_for
+    Feature record: CXX_FEATURE:1cxx_raw_string_literals
+    Feature record: CXX_FEATURE:1cxx_reference_qualified_functions
+    Feature record: CXX_FEATURE:1cxx_return_type_deduction
+    Feature record: CXX_FEATURE:1cxx_right_angle_brackets
+    Feature record: CXX_FEATURE:1cxx_rvalue_references
+    Feature record: CXX_FEATURE:1cxx_sizeof_member
+    Feature record: CXX_FEATURE:1cxx_static_assert
+    Feature record: CXX_FEATURE:1cxx_strong_enums
+    Feature record: CXX_FEATURE:1cxx_template_template_parameters
+    Feature record: CXX_FEATURE:1cxx_thread_local
+    Feature record: CXX_FEATURE:1cxx_trailing_return_types
+    Feature record: CXX_FEATURE:1cxx_unicode_literals
+    Feature record: CXX_FEATURE:1cxx_uniform_initialization
+    Feature record: CXX_FEATURE:1cxx_unrestricted_unions
+    Feature record: CXX_FEATURE:1cxx_user_literals
+    Feature record: CXX_FEATURE:1cxx_variable_templates
+    Feature record: CXX_FEATURE:1cxx_variadic_macros
+    Feature record: CXX_FEATURE:1cxx_variadic_templates
+
+
+Detecting CXX [] compiler features compiled with the following output:
+Change Dir: T:/Han/productionUtils/mayaPlugInBase/build/CMakeFiles/CMakeTmp
+
+Run Build Command:"C:\Program Files (x86)\Microsoft Visual Studio\2017\Community/MSBuild/15.0/Bin/MSBuild.exe" "cmTC_b9a4b.vcxproj" "/p:Configuration=Debug" "/p:VisualStudioVersion=15.0"
+Microsoft (R) Build Engine for .NET Framework 15.4.8.50001 版
+Copyright (C) Microsoft Corporation. 著作權所有，並保留一切權利。
+
+已經開始建置於 2017/11/13 下午 02:21:39。
+節點 1 (預設目標) 上的專案 "T:\Han\productionUtils\mayaPlugInBase\build\CMakeFiles\CMakeTmp\cmTC_b9a4b.vcxproj"。
+PrepareForBuild:
+  正在建立目錄 "cmTC_b9a4b.dir\Debug\"。
+  正在建立目錄 "T:\Han\productionUtils\mayaPlugInBase\build\CMakeFiles\CMakeTmp\Debug\"。
+  正在建立目錄 "cmTC_b9a4b.dir\Debug\cmTC_b9a4b.tlog\"。
+InitializeBuildStatus:
+  由於指定了 "AlwaysCreate"，因此正在建立 "cmTC_b9a4b.dir\Debug\cmTC_b9a4b.tlog\unsuccessfulbuild"。
+ClCompile:
+  C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Tools\MSVC\14.11.25503\bin\HostX86\x64\CL.exe /c /Zi /W3 /WX- /diagnostics:classic /Od /Ob0 /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\"Debug\"" /D _MBCS /Gm- /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /GR /Fo"cmTC_b9a4b.dir\Debug\\" /Fd"cmTC_b9a4b.dir\Debug\vc141.pdb" /Gd /TP /errorReport:queue T:\Han\productionUtils\mayaPlugInBase\build\CMakeFiles\feature_tests.cxx
+  Microsoft (R) C/C++ Optimizing Compiler Version 19.11.25547 for x64
+  Copyright (C) Microsoft Corporation.  著作權所有，並保留一切權利。
+  
+  cl /c /Zi /W3 /WX- /diagnostics:classic /Od /Ob0 /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\"Debug\"" /D _MBCS /Gm- /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /GR /Fo"cmTC_b9a4b.dir\Debug\\" /Fd"cmTC_b9a4b.dir\Debug\vc141.pdb" /Gd /TP /errorReport:queue T:\Han\productionUtils\mayaPlugInBase\build\CMakeFiles\feature_tests.cxx
+  feature_tests.cxx
+  
+Link:
+  C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Tools\MSVC\14.11.25503\bin\HostX86\x64\link.exe /ERRORREPORT:QUEUE /OUT:"T:\Han\productionUtils\mayaPlugInBase\build\CMakeFiles\CMakeTmp\Debug\cmTC_b9a4b.exe" /INCREMENTAL /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"T:/Han/productionUtils/mayaPlugInBase/build/CMakeFiles/CMakeTmp/Debug/cmTC_b9a4b.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"T:/Han/productionUtils/mayaPlugInBase/build/CMakeFiles/CMakeTmp/Debug/cmTC_b9a4b.lib" /MACHINE:X64  /machine:x64 cmTC_b9a4b.dir\Debug\feature_tests.obj
+  cmTC_b9a4b.vcxproj -> T:\Han\productionUtils\mayaPlugInBase\build\CMakeFiles\CMakeTmp\Debug\cmTC_b9a4b.exe
+FinalizeBuildStatus:
+  正在刪除檔案 "cmTC_b9a4b.dir\Debug\cmTC_b9a4b.tlog\unsuccessfulbuild"。
+  正在變更時間戳記 "cmTC_b9a4b.dir\Debug\cmTC_b9a4b.tlog\cmTC_b9a4b.lastbuildstate"。
+專案 "T:\Han\productionUtils\mayaPlugInBase\build\CMakeFiles\CMakeTmp\cmTC_b9a4b.vcxproj" (預設目標) 建置完成。
+
+建置成功。
+    0 個警告
+    0 個錯誤
+
+經過時間 00:00:01.25
+
+
+    Feature record: CXX_FEATURE:1cxx_aggregate_default_initializers
+    Feature record: CXX_FEATURE:1cxx_alias_templates
+    Feature record: CXX_FEATURE:1cxx_alignas
+    Feature record: CXX_FEATURE:1cxx_alignof
+    Feature record: CXX_FEATURE:1cxx_attributes
+    Feature record: CXX_FEATURE:1cxx_attribute_deprecated
+    Feature record: CXX_FEATURE:1cxx_auto_type
+    Feature record: CXX_FEATURE:1cxx_binary_literals
+    Feature record: CXX_FEATURE:1cxx_constexpr
+    Feature record: CXX_FEATURE:1cxx_contextual_conversions
+    Feature record: CXX_FEATURE:1cxx_decltype
+    Feature record: CXX_FEATURE:1cxx_decltype_auto
+    Feature record: CXX_FEATURE:1cxx_default_function_template_args
+    Feature record: CXX_FEATURE:1cxx_defaulted_functions
+    Feature record: CXX_FEATURE:1cxx_defaulted_move_initializers
+    Feature record: CXX_FEATURE:1cxx_delegating_constructors
+    Feature record: CXX_FEATURE:1cxx_deleted_functions
+    Feature record: CXX_FEATURE:1cxx_digit_separators
+    Feature record: CXX_FEATURE:1cxx_enum_forward_declarations
+    Feature record: CXX_FEATURE:1cxx_explicit_conversions
+    Feature record: CXX_FEATURE:1cxx_extended_friend_declarations
+    Feature record: CXX_FEATURE:1cxx_extern_templates
+    Feature record: CXX_FEATURE:1cxx_final
+    Feature record: CXX_FEATURE:1cxx_func_identifier
+    Feature record: CXX_FEATURE:1cxx_generalized_initializers
+    Feature record: CXX_FEATURE:1cxx_generic_lambdas
+    Feature record: CXX_FEATURE:1cxx_inheriting_constructors
+    Feature record: CXX_FEATURE:1cxx_inline_namespaces
+    Feature record: CXX_FEATURE:1cxx_lambdas
+    Feature record: CXX_FEATURE:1cxx_lambda_init_captures
+    Feature record: CXX_FEATURE:1cxx_local_type_template_args
+    Feature record: CXX_FEATURE:1cxx_long_long_type
+    Feature record: CXX_FEATURE:1cxx_noexcept
+    Feature record: CXX_FEATURE:1cxx_nonstatic_member_init
+    Feature record: CXX_FEATURE:1cxx_nullptr
+    Feature record: CXX_FEATURE:1cxx_override
+    Feature record: CXX_FEATURE:1cxx_range_for
+    Feature record: CXX_FEATURE:1cxx_raw_string_literals
+    Feature record: CXX_FEATURE:1cxx_reference_qualified_functions
+    Feature record: CXX_FEATURE:1cxx_return_type_deduction
+    Feature record: CXX_FEATURE:1cxx_right_angle_brackets
+    Feature record: CXX_FEATURE:1cxx_rvalue_references
+    Feature record: CXX_FEATURE:1cxx_sizeof_member
+    Feature record: CXX_FEATURE:1cxx_static_assert
+    Feature record: CXX_FEATURE:1cxx_strong_enums
+    Feature record: CXX_FEATURE:1cxx_template_template_parameters
+    Feature record: CXX_FEATURE:1cxx_thread_local
+    Feature record: CXX_FEATURE:1cxx_trailing_return_types
+    Feature record: CXX_FEATURE:1cxx_unicode_literals
+    Feature record: CXX_FEATURE:1cxx_uniform_initialization
+    Feature record: CXX_FEATURE:1cxx_unrestricted_unions
+    Feature record: CXX_FEATURE:1cxx_user_literals
+    Feature record: CXX_FEATURE:1cxx_variable_templates
+    Feature record: CXX_FEATURE:1cxx_variadic_macros
+    Feature record: CXX_FEATURE:1cxx_variadic_templates

@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <CustomBuild Include="T:\Han\productionUtils\mayaPlugInBase\build\CMakeFiles\821a6592428f1ab8d4f5d84d109e8d20\generate.stamp.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="CMake Rules">
+      <UniqueIdentifier>{A5466335-E6F2-3142-BFDB-895E3487C780}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

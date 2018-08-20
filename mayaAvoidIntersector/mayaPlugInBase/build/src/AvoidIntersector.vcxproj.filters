@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="T:\Han\productionUtils\mayaAvoidIntersector\mayaPlugInBase\src\AvoidIntersectorCmd.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="T:\Han\productionUtils\mayaAvoidIntersector\mayaPlugInBase\src\AvoidIntersectorCmd.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="T:\Han\productionUtils\mayaAvoidIntersector\mayaPlugInBase\src\CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{E7D0B1F9-D100-34CE-95DF-F8322895FA86}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{0853A4FB-06A7-35F7-B0CA-E82E2423111C}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

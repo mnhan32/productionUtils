@@ -1,0 +1,3 @@
+from deformerOnMesh import deformerOnMesh as dOM
+reload(dOM)
+dOM.doIt()

@@ -1,0 +1,5 @@
+# CMake generation dependency list for this directory.
+T:/Han/productionUtils/mayaAvoidIntersector/mayaPlugInBase/src/CMakeLists.txt
+T:/Han/productionUtils/mayaAvoidIntersector/mayaPlugInBase/modules/FindMaya.cmake
+C:/Program Files/CMake/share/cmake-3.9/Modules/FindPackageHandleStandardArgs.cmake
+C:/Program Files/CMake/share/cmake-3.9/Modules/FindPackageMessage.cmake
